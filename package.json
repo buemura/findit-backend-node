@@ -3,8 +3,9 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
+    "build": "tsc",
     "dev": "ts-node-dev index.ts",
+    "start": "node dist/index.js",
     "knex:migrate": "npx knex migrate:latest",
     "knex:seed": "npx knex seed:run"
   },
