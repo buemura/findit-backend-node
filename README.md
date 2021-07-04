@@ -21,7 +21,7 @@ Firstly you can clone by using the command below:
 git clone https://github.com/BrunoUemura/findit-backend-node.git
 ```
 
-Or download the zip file directly from [Github](https://github.com/BrunoUemura/findit-backend-node.git) and unzip it.
+Or download the zip file directly from [Github](https://github.com/BrunoUemura/findit-backend-node/archive/refs/heads/master.zip) and unzip it.
 
 After, downloading open the project direcotiry and run the following commands:
 
