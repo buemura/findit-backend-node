@@ -16,12 +16,20 @@ class ServicesService {
   async showAllServices(where) {
     return await database.Services.findAll({
       where: { ...where },
+      include: {
+        model: database.Users,
+        as: "User",
+      },
     });
   }
 
   async showOneService(id) {
     return await database.Services.findOne({
       where: { id },
+      include: {
+        model: database.Users,
+        as: "User",
+      },
     });
   }
 
@@ -49,6 +57,10 @@ class ServicesService {
   async showServicesFromUser(user_id) {
     return await database.Services.findAll({
       where: { user_id },
+      include: {
+        model: database.Users,
+        as: "User",
+      },
     });
   }
 }
