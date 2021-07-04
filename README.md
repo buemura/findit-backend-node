@@ -40,7 +40,8 @@ For testing environment, it is recomended to use docker.
 
 - To build the Docker image `docker-compose build`
 - To run the Docker Compose `docker-compose up -d`
-- To run the database migrations, access node docker container and run `npx sequelize-cli db:migrate`
+- To run the database migrations `npx sequelize-cli db:migrate`
+- To run the database seeders `npx sequelize-cli db:seed:all`
 
 ### Production environment
 
