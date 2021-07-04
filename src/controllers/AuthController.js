@@ -30,7 +30,7 @@ class AuthController {
 
     try {
       AuthController.checkRegistrationFields(name, email, password);
-      const users = await authService.register({ name, email, password });
+      const users = await authService.registerUser({ name, email, password });
       return res.json(users);
     } catch (error) {
       return res
@@ -45,7 +45,7 @@ class AuthController {
 
     try {
       AuthController.checkLoginFields(email, password);
-      const users = await authService.login({ email, password });
+      const users = await authService.loginUser({ email, password });
       return res.json(users);
     } catch (error) {
       console.log(error);

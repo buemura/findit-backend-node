@@ -14,17 +14,14 @@ class UsersService {
     return count;
   }
 
-  async updateUser(id, dataToUpdate) {
-    const userExists = await database.Users.findOne({
-      where: { id },
-    });
+  async updateUser(userInfo, id) {
+    const userExists = await database.Users.findOne({ where: { id } });
 
     if (!userExists) {
       throw new Error("User does not exist!");
     }
 
-    await database.Users.update(dataToUpdate, { where: { id } });
-
+    await database.Users.update(userInfo, { where: { id } });
     return { message: `UPDATED user id ${id}` };
   }
 

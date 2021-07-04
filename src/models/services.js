@@ -17,13 +17,16 @@ module.exports = (sequelize, DataTypes) => {
       category: DataTypes.STRING,
       description: DataTypes.STRING,
       price: DataTypes.NUMERIC,
-      location: DataTypes.STRING,
+      city: DataTypes.STRING,
+      state: DataTypes.STRING,
+      country: DataTypes.STRING,
     },
     {
       sequelize,
       modelName: "Services",
+      paranoid: true,
     }
   );
-  Services.beforeCreate((Service) => (Service.id = uuidv4()));
+  Services.beforeCreate((service) => (service.id = uuidv4()));
   return Services;
 };

@@ -4,7 +4,7 @@ const database = require("../models");
 require("dotenv").config();
 
 class AuthService {
-  async register({ name, email, password }) {
+  async registerUser({ name, email, password }) {
     const userAlreadyExists = await database.Users.findOne({
       where: { name, email },
     });
@@ -28,7 +28,7 @@ class AuthService {
     return { message: "User registered successfully!" };
   }
 
-  async login({ email, password }) {
+  async loginUser({ email, password }) {
     const user = await database.Users.findOne({ where: { email } });
 
     if (!user) {

@@ -4,14 +4,20 @@ const { StatusCodes } = require("http-status-codes");
 class ServicesController {
   static async showAllServices(req, res) {
     const servicesService = new ServicesService();
-    const { category, location } = req.query;
+    const { category, city, state, country } = req.query;
     const where = {};
 
     if (category) {
       where.category = category;
     }
-    if (location) {
-      where.location = location;
+    if (city) {
+      where.city = city;
+    }
+    if (state) {
+      where.state = state;
+    }
+    if (country) {
+      where.country = country;
     }
 
     try {
@@ -51,19 +57,11 @@ class ServicesController {
   }
 
   static async createService(request, response) {
-    const { user_id, title, category, description, price, location } =
-      request.body;
+    const serviceInfo = request.body;
     const servicesService = new ServicesService();
 
     try {
-      const services = await servicesService.createService({
-        user_id,
-        title,
-        category,
-        description,
-        price,
-        location,
-      });
+      const services = await servicesService.createService(serviceInfo);
       return response.json(services);
     } catch (error) {
       return response
@@ -74,18 +72,11 @@ class ServicesController {
 
   static async updateService(req, res) {
     const { id } = req.params;
-    const { user_id, title, category, description, price, location } = req.body;
+    const serviceInfo = req.body;
     const servicesService = new ServicesService();
 
     try {
-      const service = await servicesService.updateService(id, {
-        user_id,
-        title,
-        category,
-        description,
-        price,
-        location,
-      });
+      const service = await servicesService.updateService(serviceInfo, id);
       return res.json(service);
     } catch (error) {
       return res
@@ -113,9 +104,9 @@ class ServicesController {
     const servicesService = new ServicesService();
 
     try {
-      const userAllServices = await servicesService.showServicesFromUser(
-        user_id
-      );
+      const userAllServices = await servicesService.showServicesFromUser({
+        where: { user_id },
+      });
       return res.json(userAllServices);
     } catch (error) {
       return res

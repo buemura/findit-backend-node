@@ -13,6 +13,7 @@ module.exports = {
       },
       email: {
         allowNull: false,
+        unique: true,
         type: Sequelize.STRING,
       },
       password: {
@@ -20,18 +21,31 @@ module.exports = {
         type: Sequelize.STRING,
       },
       user_photo: {
+        allowNull: true,
         type: Sequelize.STRING,
       },
-      location: {
+      city: {
+        allowNull: true,
+        type: Sequelize.STRING,
+      },
+      state: {
+        allowNull: true,
+        type: Sequelize.STRING,
+      },
+      country: {
+        allowNull: true,
         type: Sequelize.STRING,
       },
       phone: {
+        allowNull: true,
         type: Sequelize.STRING,
       },
       occupation: {
+        allowNull: true,
         type: Sequelize.STRING,
       },
       about_me: {
+        allowNull: true,
         type: Sequelize.STRING,
       },
       createdAt: {
@@ -40,6 +54,10 @@ module.exports = {
       },
       updatedAt: {
         allowNull: false,
+        type: Sequelize.DATE,
+      },
+      deletedAt: {
+        allowNull: true,
         type: Sequelize.DATE,
       },
     });

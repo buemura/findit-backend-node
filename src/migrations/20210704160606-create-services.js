@@ -21,14 +21,23 @@ module.exports = {
         type: Sequelize.STRING,
       },
       description: {
+        allowNull: false,
         type: Sequelize.STRING,
       },
       price: {
         allowNull: false,
         type: Sequelize.NUMERIC,
       },
-      location: {
-        allowNull: false,
+      city: {
+        allowNull: true,
+        type: Sequelize.STRING,
+      },
+      state: {
+        allowNull: true,
+        type: Sequelize.STRING,
+      },
+      country: {
+        allowNull: true,
         type: Sequelize.STRING,
       },
       createdAt: {
@@ -37,6 +46,10 @@ module.exports = {
       },
       updatedAt: {
         allowNull: false,
+        type: Sequelize.DATE,
+      },
+      deletedAt: {
+        allowNull: true,
         type: Sequelize.DATE,
       },
     });

@@ -43,11 +43,11 @@ class UsersController {
 
   static async updateUser(req, res) {
     const { id } = req.params;
-    const dataToUpdate = req.body;
+    const userInfo = req.body;
     const usersService = new UsersService();
 
     try {
-      const user = await usersService.updateUser(id, dataToUpdate);
+      const user = await usersService.updateUser(userInfo, id);
       return res.json(user);
     } catch (error) {
       return res
