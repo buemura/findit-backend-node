@@ -1,0 +1,29 @@
+version: "3"
+
+services:
+  db:
+    image: postgres:latest
+    environment:
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_DB: findit
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./pgdata:/var/lib/postgresql/data
+
+  node:
+    build:
+      dockerfile: ./Dockerfile
+      context: .
+    image: uemurabruno/findit-backend
+    container_name: node
+    depends_on:
+      - db
+    restart: always
+    ports:
+      - "4000:4000"
+
+networks:
+  production-network:
+    driver: bridge
