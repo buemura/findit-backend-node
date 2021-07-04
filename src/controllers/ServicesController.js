@@ -100,13 +100,11 @@ class ServicesController {
   }
 
   static async showServicesFromUser(req, res) {
-    const { user_id } = req.params;
+    const { id } = req.params;
     const servicesService = new ServicesService();
 
     try {
-      const userAllServices = await servicesService.showServicesFromUser({
-        where: { user_id },
-      });
+      const userAllServices = await servicesService.showServicesFromUser(id);
       return res.json(userAllServices);
     } catch (error) {
       return res

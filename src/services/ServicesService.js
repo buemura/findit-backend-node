@@ -49,7 +49,6 @@ class ServicesService {
   async showServicesFromUser(user_id) {
     return await database.Services.findAll({
       where: { user_id },
-      include: [{ model: Users, as: Users.tableName }],
     });
   }
 }

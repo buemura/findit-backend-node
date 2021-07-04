@@ -11,6 +11,7 @@ Services.get(
   "/api/services/all/count",
   ServicesController.showServicesQuantity
 );
+Services.get("/api/services/user/:id", ServicesController.showServicesFromUser);
 Services.post(
   "/api/services/",
   authMiddleware,
