@@ -6,7 +6,7 @@ class UsersService {
   }
 
   async showOneUser(id) {
-    return await database.Users.findOne({ where: { id: Number(id) } });
+    return await database.Users.findOne({ where: { id } });
   }
 
   async showUsersQuantity() {
@@ -16,20 +16,20 @@ class UsersService {
 
   async updateUser(id, dataToUpdate) {
     const userExists = await database.Users.findOne({
-      where: { id: Number(id) },
+      where: { id },
     });
 
     if (!userExists) {
       throw new Error("User does not exist!");
     }
 
-    await database.Users.update(dataToUpdate, { where: { id: Number(id) } });
+    await database.Users.update(dataToUpdate, { where: { id } });
 
     return { message: `UPDATED user id ${id}` };
   }
 
   async deleteUser(id) {
-    await database.Users.destroy({ where: { id: Number(id) } });
+    await database.Users.destroy({ where: { id } });
     return { message: `DELETED user id ${id}` };
   }
 }
