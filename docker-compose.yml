@@ -3,6 +3,7 @@ version: "3"
 services:
   db:
     image: postgres:latest
+    container_name: postgres
     environment:
       POSTGRES_PASSWORD: postgres
       POSTGRES_USER: postgres
@@ -11,18 +12,65 @@ services:
       - "5432:5432"
     volumes:
       - ./pgdata:/var/lib/postgresql/data
+    networks:
+      - production-network
 
-  node:
+  node1:
     build:
-      dockerfile: ./Dockerfile
+      dockerfile: ./docker/node.dockerfile
       context: .
     image: uemurabruno/findit-backend
-    container_name: node
+    container_name: node-1
     depends_on:
       - db
     restart: always
+    networks:
+      - production-network
     ports:
-      - "4000:4000"
+      - "4000"
+
+  node2:
+    build:
+      dockerfile: ./docker/node.dockerfile
+      context: .
+    image: uemurabruno/findit-backend
+    container_name: node-2
+    depends_on:
+      - db
+    restart: always
+    networks:
+      - production-network
+    ports:
+      - "4000"
+
+  node3:
+    build:
+      dockerfile: ./docker/node.dockerfile
+      context: .
+    image: uemurabruno/findit-backend
+    container_name: node-3
+    depends_on:
+      - db
+    restart: always
+    networks:
+      - production-network
+    ports:
+      - "4000"
+
+  nginx:
+    build:
+      dockerfile: ./docker/nginx.dockerfile
+      context: .
+    image: uemurabruno/nginx
+    container_name: nginx
+    ports:
+      - "80:80"
+    networks:
+      - production-network
+    depends_on:
+      - "node1"
+      - "node2"
+      - "node3"
 
 networks:
   production-network:
