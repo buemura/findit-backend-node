@@ -9,7 +9,7 @@ RUN npm install
 COPY . .
 
 COPY .sequelizerc .
-COPY .env .
+COPY .env.test .
 
 EXPOSE 4000
 
