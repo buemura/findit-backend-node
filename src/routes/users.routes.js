@@ -11,6 +11,7 @@ const users = Router();
 users.get("/api/users", UsersController.showAllUsers);
 users.get("/api/users/:id", UsersController.showOneUser);
 users.get("/api/users/all/count", UsersController.showUsersQuantity);
+users.get("/api/users/:id/profile-image", UploadController.getProfileImage);
 users.post(
   "/api/users/:id/profile-image/upload",
   authMiddleware,
