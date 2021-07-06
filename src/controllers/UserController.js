@@ -1,5 +1,6 @@
 const UsersService = require("../services/UsersService");
 const { StatusCodes } = require("http-status-codes");
+const path = require("path");
 
 class UsersController {
   static async showAllUsers(req, res) {
@@ -41,6 +42,22 @@ class UsersController {
     }
   }
 
+  static async getProfileImage(req, res) {
+    const { id } = req.params;
+    const usersService = new UsersService();
+
+    try {
+      const profileImage = await usersService.getProfileImage(id);
+      return res.sendFile(
+        path.resolve(__dirname, "..", "..", "uploads", profileImage)
+      );
+    } catch (error) {
+      return res
+        .status(StatusCodes.BAD_REQUEST)
+        .json({ message: error.message });
+    }
+  }
+
   static async updateUser(req, res) {
     const { id } = req.params;
     const userInfo = req.body;
@@ -49,6 +66,21 @@ class UsersController {
     try {
       const user = await usersService.updateUser(userInfo, id);
       return res.json(user);
+    } catch (error) {
+      return res
+        .status(StatusCodes.BAD_REQUEST)
+        .json({ message: error.message });
+    }
+  }
+
+  static async uploadProfileImage(req, res) {
+    const { id } = req.params;
+    const { filename } = req.file;
+    const usersService = new UsersService();
+
+    try {
+      const upload = await usersService.uploadProfileImage(filename, id);
+      return res.json(upload);
     } catch (error) {
       return res
         .status(StatusCodes.BAD_REQUEST)

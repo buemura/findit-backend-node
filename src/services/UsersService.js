@@ -14,6 +14,18 @@ class UsersService {
     return count;
   }
 
+  async getProfileImage(id) {
+    const userExists = await database.Users.findOne({ where: { id } });
+
+    if (!userExists) {
+      throw new Error("User does not exist!");
+    }
+
+    const { user_photo } = userExists;
+
+    return user_photo;
+  }
+
   async updateUser(userInfo, id) {
     const userExists = await database.Users.findOne({ where: { id } });
 
@@ -23,6 +35,17 @@ class UsersService {
 
     await database.Users.update(userInfo, { where: { id } });
     return { message: `UPDATED user id ${id}` };
+  }
+
+  async uploadProfileImage(filename, id) {
+    const userExists = await database.Users.findOne({ where: { id } });
+
+    if (!userExists) {
+      throw new Error("User does not exist!");
+    }
+
+    await database.Users.update({ user_photo: filename }, { where: { id } });
+    return { message: `UPDATED user id ${id} profile photo` };
   }
 
   async deleteUser(id) {
