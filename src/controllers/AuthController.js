@@ -45,8 +45,11 @@ class AuthController {
 
     try {
       AuthController.checkLoginFields(email, password);
-      const users = await authService.loginUser({ email, password });
-      return res.json(users);
+      const { auth, message, token } = await authService.loginUser({
+        email,
+        password,
+      });
+      return res.json({ auth, message, token });
     } catch (error) {
       console.log(error);
       return res

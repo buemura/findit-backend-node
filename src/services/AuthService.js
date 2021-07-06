@@ -30,6 +30,8 @@ class AuthService {
 
   async loginUser({ email, password }) {
     const user = await database.Users.findOne({ where: { email } });
+    const payload = { id: user.id, email: user.email };
+    const expiration = { expiresIn: "1h" };
 
     if (!user) {
       return { auth: false, message: `Email ${email} is not registered` };
@@ -41,16 +43,7 @@ class AuthService {
       return { auth: false, message: "Authentication Failed" };
     }
 
-    const token = jwt.sign(
-      {
-        id: user.id,
-        email: user.email,
-      },
-      `${process.env.JWT_SECRET}`,
-      {
-        expiresIn: "1h",
-      }
-    );
+    const token = jwt.sign(payload, process.env.JWT_SECRET, expiration);
 
     return { auth: true, message: "Authentication Successful", token };
   }
