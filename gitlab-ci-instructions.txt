@@ -1,6 +1,0 @@
-create runner:
-- docker pull gitlab/gitlab-runner:latest
-- docker run -d --name gitlab-runner --restart always -v /Users/Shared/gitlab-runner/config:/etc/gitlab-runner -v /var/run/docker.sock:/var/run/docker.sock gitlab/gitlab-runner:latest
-- docker exec -it gitlab-runner bash
-- gitlab-runner register
-    - https://gitlab.com/
