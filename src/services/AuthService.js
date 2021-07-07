@@ -21,10 +21,6 @@ class AuthService {
       password: hashedPassword,
     });
 
-    console.log({
-      status: "OK",
-      message: "User registered successfully!",
-    });
     return { message: "User registered successfully!" };
   }
 

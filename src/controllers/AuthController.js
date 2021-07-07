@@ -48,7 +48,6 @@ class AuthController {
       });
       return res.json({ auth, message, token });
     } catch (error) {
-      console.log(error);
       return res.status(error.status).json({ message: error.message });
     }
   }
