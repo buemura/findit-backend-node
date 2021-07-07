@@ -5,16 +5,33 @@ This application expect a HTTP request from Client Frontend and it returns a JSO
 
 ## Technologies
 
-In this application the technologies below will be used:
+In this application the technologies below was be used:
 
-- Node.js
-- Express
-- Sequelize
-- PostgreSQL
-- Redis
-- NGINX
-- Docker
-- Heroku
+<a href="https://nodejs.org/en/" target="_blank">
+  <img src="https://cdn.iconscout.com/icon/free/png-512/node-js-1174925.png" width="32px" heigth="32px"> 
+</a>
+<a href="https://expressjs.com/pt-br/" target="_blank">
+  <img src="https://img2.pngio.com/express-js-png-5-png-image-expressjs-png-800_800.png" width="32px" heigth="32px"> 
+</a>
+<a href="https://sequelize.org/" target="_blank">
+  <img src="https://sequelize.org/v3/images/logo-small.png" width="32.52px" heigth="30px">
+</a>
+<a href="https://www.postgresql.org/" target="_blank">
+  <img src="https://www.postgresql.org/media/img/about/press/elephant.png" width="30px" heigth="30px">
+</a>
+<a href="https://redis.io/" target="_blank">
+  <img src="https://img.icons8.com/color/452/redis.png" width="30px" heigth="30px">
+</a>
+<a href="https://www.nginx.com/" target="_blank">
+  <img src="https://img.icons8.com/color/452/nginx.png" width="30px" heigth="30px">
+</a>
+<a href="https://www.docker.com/" target="_blank">
+  <img src="https://www.docker.com/sites/default/files/d8/2019-07/vertical-logo-monochromatic.png" width="30px" heigth="30px">
+</a>
+<a href="https://heroku.com/" target="_blank">
+  <img src="https://image.flaticon.com/icons/png/512/873/873120.png" width="30px" heigth="30px">
+</a>
+<br></br>
 
 ## Setup
 
