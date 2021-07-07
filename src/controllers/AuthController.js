@@ -1,6 +1,5 @@
 const AuthService = require("../services/AuthService");
-const { StatusCodes } = require("http-status-codes");
-// const MissingData = require("../errors/MissingData");
+const MissingData = require("../errors/MissingData");
 
 class AuthController {
   static checkRegistrationFields(name, email, password) {
@@ -17,10 +16,10 @@ class AuthController {
 
   static checkLoginFields(email, password) {
     if (!email) {
-      // throw new MissingData("email");
+      throw new MissingData("email");
     }
     if (!password) {
-      // throw new MissingData("password");
+      throw new MissingData("password");
     }
   }
 
@@ -33,9 +32,7 @@ class AuthController {
       const users = await authService.registerUser({ name, email, password });
       return res.json(users);
     } catch (error) {
-      return res
-        .status(StatusCodes.BAD_REQUEST)
-        .json({ message: error.message });
+      return res.status(error.status).json({ message: error.message });
     }
   }
 
@@ -52,9 +49,7 @@ class AuthController {
       return res.json({ auth, message, token });
     } catch (error) {
       console.log(error);
-      return res
-        .status(StatusCodes.BAD_REQUEST)
-        .json({ message: error.message });
+      return res.status(error.status).json({ message: error.message });
     }
   }
 }

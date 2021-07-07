@@ -1,22 +1,23 @@
 const jwt = require("jsonwebtoken");
+const MissingTokenJWT = require("../errors/MissingTokenJWT");
+const { StatusCodes } = require("http-status-codes");
 
 module.exports = (req, res, next) => {
-  const { authorization } = req.headers;
-
-  if (!authorization) {
-    return res.sendStatus(401);
-  }
-
-  const token = authorization.replace("Bearer", "").trim();
-
   try {
-    const data = jwt.verify(token, process.env.JWT_SECRET);
-    const { id } = data;
+    const { authorization } = req.headers;
 
-    req.userID = id;
+    if (!authorization) {
+      throw new MissingTokenJWT();
+    }
+
+    const token = authorization.replace("Bearer", "").trim();
+    jwt.verify(token, process.env.JWT_SECRET);
 
     return next();
-  } catch {
-    return res.sendStatus(401);
+  } catch (error) {
+    console.log(error);
+    return res
+      .status(StatusCodes.UNAUTHORIZED)
+      .json({ message: error.message });
   }
 };

@@ -1,6 +1,7 @@
 const multer = require("multer");
 const path = require("path");
 const crypto = require("crypto");
+const InvalidData = require("../errors/InvalidData");
 
 module.exports = {
   dest: path.resolve(__dirname, "..", "..", "uploads"),
@@ -30,7 +31,7 @@ module.exports = {
     if (allowedMimes.includes(file.mimetype)) {
       cb(null, true);
     } else {
-      cb(new Error("Invalid file type."));
+      cb(new InvalidData());
     }
   },
 };

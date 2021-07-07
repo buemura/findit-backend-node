@@ -52,9 +52,7 @@ class UsersController {
         path.resolve(__dirname, "..", "..", "uploads", profileImage)
       );
     } catch (error) {
-      return res
-        .status(StatusCodes.BAD_REQUEST)
-        .json({ message: error.message });
+      return res.status(error.status).json({ message: error.message });
     }
   }
 

@@ -1,4 +1,16 @@
+const NotFound = require("../errors/NotFound");
 const database = require("../models");
+
+async function checkServiceExists(id) {
+  const serviceExists = await database.Services.findOne({ where: { id } });
+
+  if (!serviceExists) {
+    throw new NotFound("Service");
+  }
+
+  return serviceExists;
+}
+
 class ServicesService {
   async createService(serviceInfo) {
     const userExists = await database.Users.findOne({
@@ -6,7 +18,7 @@ class ServicesService {
     });
 
     if (!userExists) {
-      throw new Error("User associated does not exist!");
+      throw new NotFound("User associated");
     }
 
     await database.Services.create(serviceInfo);
@@ -39,22 +51,28 @@ class ServicesService {
   }
 
   async updateService(serviceInfo, id) {
-    const serviceExists = await database.Services.findOne({ where: { id } });
-
-    if (!serviceExists) {
-      throw new Error("Service does not exist!");
-    }
+    await checkServiceExists(id);
 
     await database.Services.update(serviceInfo, { where: { id } });
     return { message: `UPDATED service id ${id}` };
   }
 
   async deleteService(id) {
+    await checkServiceExists(id);
+
     await database.Services.destroy({ where: { id } });
     return { message: `DELETED service id ${id}` };
   }
 
   async showServicesFromUser(user_id) {
+    const userExists = await database.Users.findOne({
+      where: { id: user_id },
+    });
+
+    if (!userExists) {
+      throw new NotFound("User associated");
+    }
+
     return await database.Services.findAll({
       where: { user_id },
       include: {
