@@ -51,6 +51,18 @@ class AuthController {
       return res.status(error.status).json({ message: error.message });
     }
   }
+
+  static async logoutUser(req, res) {
+    const { token } = req.body;
+    const authService = new AuthService();
+
+    try {
+      const { auth, message } = await authService.logoutUser(token);
+      return res.json({ auth, message });
+    } catch (error) {
+      return res.status(error.status).json({ message: error.message });
+    }
+  }
 }
 
 module.exports = AuthController;

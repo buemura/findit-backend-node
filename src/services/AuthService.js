@@ -1,6 +1,7 @@
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const database = require("../models");
+const blacklist = require("../middlewares/handleBlacklist");
 require("dotenv").config();
 
 class AuthService {
@@ -42,6 +43,22 @@ class AuthService {
     const token = jwt.sign(payload, process.env.JWT_SECRET, expiration);
 
     return { auth: true, message: "Authentication Successful", token };
+  }
+
+  async logoutUser(token) {
+    try {
+      const tokenInBlackList = await blacklist.tokenExists(token);
+
+      if (tokenInBlackList) {
+        throw new jwt.JsonWebTokenError("Already Logged out.");
+      }
+
+      await blacklist.add(token);
+
+      return { auth: true, message: "Signed out successfully" };
+    } catch (error) {
+      return { auth: false, message: error.message };
+    }
   }
 }
 

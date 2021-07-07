@@ -3,3 +3,4 @@ node_modules/
 pgdata/
 .env*
 uploads/*
+__tests__/coverage/*

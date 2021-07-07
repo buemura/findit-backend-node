@@ -4,9 +4,9 @@ const request = supertest(app);
 
 jest.setTimeout(30000);
 
-const id = "5f49b7b1-e14c-4f13-ba8a-77839cc84c50";
+const id = "f76aa4eb-db64-43e4-9d15-cec2aa1f9310";
 const token =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmNDliN2IxLWUxNGMtNGYxMy1iYThhLTc3ODM5Y2M4NGM1MCIsImVtYWlsIjoiYnJ1bm8udWVtdXJhQGdtYWlsLmNvbSIsImlhdCI6MTYyNTYyNzA3NSwiZXhwIjoxNjI1NjMwNjc1fQ.Xhl37L9FQyT4LavUajbBZ4EfpwrerTXECibTAZfoNkU";
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImY3NmFhNGViLWRiNjQtNDNlNC05ZDE1LWNlYzJhYTFmOTMxMCIsImVtYWlsIjoiYnJ1bm8udWVtdXJhQGdtYWlsLmNvbSIsImlhdCI6MTYyNTY4ODUwMCwiZXhwIjoxNjI1NjkyMTAwfQ.dgph8nCdNf_go9sPvO70ZftwGKw4KJ-AYMHN5PoKKmg";
 
 describe("Test users routes return", () => {
   it("should return all users information", async () => {

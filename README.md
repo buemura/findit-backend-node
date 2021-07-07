@@ -10,6 +10,9 @@ In this application the technologies below will be used:
 - Node.js
 - Express
 - Sequelize
+- PostgreSQL
+- Redis
+- NGINX
 - Docker
 - Heroku
 
@@ -38,11 +41,9 @@ _Make sure to check the environment variables_
 _Make sure to check the environment variables_
 For testing environment, it is recomended to use docker.
 
-- To install the dependencies `npm install`
-- To build the Docker image `docker-compose build`
-- To run the Docker Compose `docker-compose up -d`
-- To run the database migrations `npx sequelize-cli db:migrate`
-- To run the database seeders `npx sequelize-cli db:seed:all`
+Run the Dockerize Script in bash.
+
+- To run the dockerize script `npm run docker`
 
 ### Production environment
 

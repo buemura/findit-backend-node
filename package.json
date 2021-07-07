@@ -4,8 +4,9 @@
   "description": "",
   "main": "src/server.js",
   "scripts": {
-    "test": "jest",
     "dev": "nodemon src/server.js --ignore __test__",
+    "test": "jest --passWithNoTests",
+    "docker": "sh ./scripts/dockerize.sh",
     "start": "node src/server.js"
   },
   "keywords": [],
@@ -21,6 +22,7 @@
     "morgan": "^1.10.0",
     "multer": "^1.4.2",
     "pg": "^8.6.0",
+    "redis": "^3.1.2",
     "sequelize": "^6.6.4",
     "sequelize-cli": "^6.2.0"
   },
