@@ -32,7 +32,19 @@ class AuthController {
       const users = await authService.registerUser({ name, email, password });
       return res.json(users);
     } catch (error) {
-      return res.status(error.status).json({ message: error.message });
+      return res.status(error.status || 500).json({ message: error.message });
+    }
+  }
+
+  static async confirmRegistration(req, res) {
+    const { id } = req.params;
+    const authService = new AuthService();
+
+    try {
+      const users = await authService.confirmRegistration(id);
+      return res.json(users);
+    } catch (error) {
+      return res.status(error.status || 500).json({ message: error.message });
     }
   }
 
@@ -48,7 +60,7 @@ class AuthController {
       });
       return res.json({ auth, message, token });
     } catch (error) {
-      return res.status(error.status).json({ message: error.message });
+      return res.status(error.status || 500).json({ message: error.message });
     }
   }
 
@@ -60,7 +72,7 @@ class AuthController {
       const { auth, message } = await authService.logoutUser(token);
       return res.json({ auth, message });
     } catch (error) {
-      return res.status(error.status).json({ message: error.message });
+      return res.status(error.status || 500).json({ message: error.message });
     }
   }
 }

@@ -48,6 +48,11 @@ module.exports = {
         allowNull: true,
         type: Sequelize.STRING,
       },
+      email_verified: {
+        allowNull: false,
+        defaultValue: false,
+        type: Sequelize.STRING,
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,
