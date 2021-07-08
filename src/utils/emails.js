@@ -42,7 +42,7 @@ class EmailConfirmation extends Email {
     this.to = email;
     this.subject = "Email Confirmation";
     this.text = `Hi! Please confirm your registration by clicking the URL below: ${address}`;
-    this.html = `<h1>Hi!</h1> Please confirm your registration by clicking the URL below: <a href="${address}">${address}</a>`;
+    this.html = `<h1>Hi!</h1> Please confirm your registration by clicking the URL below:<br></br> <a href="${address}">${address}</a>`;
   }
 }
 
