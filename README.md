@@ -5,7 +5,7 @@ This application expect a HTTP request from Client Frontend and it returns a JSO
 
 ## Technologies
 
-In this application the technologies below was be used:
+In this application the technologies below was used:
 
 <a href="https://nodejs.org/en/" target="_blank">
   <img src="https://cdn.iconscout.com/icon/free/png-512/node-js-1174925.png" width="32px" heigth="32px"> 
