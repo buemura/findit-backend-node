@@ -1,5 +1,5 @@
 const NotFound = require("../errors/NotFound");
-const database = require("../models");
+const database = require("../database/models");
 
 async function checkServiceExists(id) {
   const serviceExists = await database.Services.findOne({ where: { id } });

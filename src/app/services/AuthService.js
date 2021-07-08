@@ -1,8 +1,8 @@
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-const database = require("../models");
+const database = require("../database/models");
 const blacklist = require("../middlewares/handleBlacklist");
-const { EmailConfirmation } = require("../utils/emails");
+const { EmailConfirmation } = require("../../utils/emails");
 const AlreadyExists = require("../errors/AlreadyExists");
 require("dotenv").config();
 

@@ -1,5 +1,5 @@
 require("dotenv").config();
-const db = require("../src/models");
+const db = require("../src/app/database/models");
 const Sequelize = require("sequelize");
 
 describe("Test database connectivity", () => {

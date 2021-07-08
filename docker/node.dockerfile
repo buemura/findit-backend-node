@@ -1,7 +1,7 @@
 FROM node:latest
 LABEL maintainer="Bruno Uemura"
 
-WORKDIR /usr/app
+WORKDIR /usr/server
 
 COPY package*.json ./
 RUN npm install

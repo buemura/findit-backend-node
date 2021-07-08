@@ -1,4 +1,4 @@
-const blacklist = require("../config/redis");
+const blacklist = require("../../config/redis");
 const jwt = require("jsonwebtoken");
 const { createHash } = require("crypto");
 

@@ -1,5 +1,5 @@
 const NotFound = require("../errors/NotFound");
-const database = require("../models");
+const database = require("../database/models");
 
 async function checkUserExists(id) {
   const userExists = await database.Users.findOne({ where: { id } });
