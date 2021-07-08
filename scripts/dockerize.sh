@@ -7,7 +7,7 @@ docker-compose build
 docker-compose up -d
 
 echo -e "\n${green}[==== Checking database relations ====]${reset}"
-status_code=$(curl --write-out %{http_code} --silent --output /dev/null http://localhost/api/users)
+status_code=$(curl --write-out %{http_code} --silent --output /dev/null http://localhost:8080/api/users)
 
 if [[ $status_code -ne 200 ]] ; then
   echo -e "${green}[======= Executing  Migrations =======]${reset}"

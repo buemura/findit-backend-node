@@ -33,6 +33,8 @@ In this application the technologies below was used:
 </a>
 <br></br>
 
+![alt text](./docs/backend-architecture.png)
+
 ## Setup
 
 Firstly you can clone by using the command below:
