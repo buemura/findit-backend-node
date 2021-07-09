@@ -35,6 +35,8 @@ In this application the technologies below was used:
 
 ![alt text](./docs/backend-architecture.png)
 
+![alt text](./docs/API-workflow.png)
+
 ## Setup
 
 Firstly you can clone by using the command below:
