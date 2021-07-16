@@ -2,6 +2,7 @@ const { Router } = require("express");
 const auth = require("./auth.routes");
 const users = require("./users.routes");
 const services = require("./services.routes");
+const chat = require("./chat.routes");
 
 const routes = Router();
 
@@ -9,6 +10,6 @@ const routes = Router();
 routes.get("/", (req, res) => {
   res.send({ message: "You are in the backend API" });
 });
-routes.use(auth, users, services);
+routes.use(auth, users, services, chat);
 
 module.exports = routes;
