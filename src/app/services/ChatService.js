@@ -15,18 +15,18 @@ class ChatService {
   }
 
   async createChatRoom(chatInfo) {
+    // Check if Users associated exists
     const senderExists = await database.Users.findOne({
       where: { id: chatInfo.sender_id },
     });
-
     const receiverExists = await database.Users.findOne({
       where: { id: chatInfo.receiver_id },
     });
-
     if (!senderExists || !receiverExists) {
       throw new NotFound("Users associated");
     }
 
+    // Check if the Chat Room already exists
     const chatExists = await database.Chats.findOne({
       where: {
         [Op.and]: [
@@ -35,22 +35,33 @@ class ChatService {
         ],
       },
     });
-
     if (chatExists) {
       throw new AlreadyExists("Chat room already created");
     }
 
+    // Create Chat Room
     await database.Chats.create(chatInfo);
     return { message: `Chat Room created successfully!` };
   }
 
   async sendMessage({ sender_id, content }, id) {
+    // Check if Chat Room exists
     const chatExists = await database.Chats.findOne({ where: { id } });
-
     if (!chatExists) {
       throw new NotFound("Chat associated");
     }
 
+    // Check if sender_id is associated to chat room
+    const userAssociated = await database.Chats.findOne({
+      where: {
+        [Op.or]: [{ sender_id }, { receiver_id: sender_id }],
+      },
+    });
+    if (!userAssociated) {
+      throw new NotFound("User associated");
+    }
+
+    // Send message
     const message = await database.Messages.create({
       chat_id: id,
       sender_id,

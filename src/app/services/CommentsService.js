@@ -9,12 +9,13 @@ class CommentsService {
   }
 
   async createComment({ sender_id, comment }, id) {
+    // Check if Service exists
     const serviceExists = await database.Services.findOne({ where: { id } });
-
     if (!serviceExists) {
       throw new NotFound("Service associated");
     }
 
+    // Post Comment
     const response = await database.Comments.create({
       service_id: id,
       sender_id,
