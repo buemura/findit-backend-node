@@ -8,9 +8,9 @@ const chat = Router();
 chat.get("/api/chats", authMiddleware, ChatController.showAllChatRooms);
 chat.get("/api/chat/:id", authMiddleware, ChatController.showAllMessages);
 chat.post(
-  "/api/chat/create-chat/:id",
+  "/api/chat/create-chat",
   authMiddleware,
-  ChatController.createChat
+  ChatController.createChatRoom
 );
 chat.post(
   "/api/chat/send-message/:id",

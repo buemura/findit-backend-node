@@ -12,8 +12,8 @@ status_code=$(curl --write-out %{http_code} --silent --output /dev/null http://l
 if [[ $status_code -ne 200 ]] ; then
   echo -e "${green}[======= Executing  Migrations =======]${reset}"
   sleep 30
-  docker exec node-1 npx sequelize-cli db:migrate
-  docker exec node-1 npx sequelize-cli db:seed:all
+  docker exec node-1 npm run migrations
+  docker exec node-1 npm run seeds
 else
   echo -e "${green}[==== Migrations already executed ====]${reset}"
   exit 0

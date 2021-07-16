@@ -3,6 +3,7 @@ const auth = require("./auth.routes");
 const users = require("./users.routes");
 const services = require("./services.routes");
 const chat = require("./chat.routes");
+const comments = require("./comments.routes");
 
 const routes = Router();
 
@@ -10,6 +11,6 @@ const routes = Router();
 routes.get("/", (req, res) => {
   res.send({ message: "You are in the backend API" });
 });
-routes.use(auth, users, services, chat);
+routes.use(auth, users, services, chat, comments);
 
 module.exports = routes;

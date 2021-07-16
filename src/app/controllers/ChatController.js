@@ -30,13 +30,12 @@ class ChatController {
     }
   }
 
-  static async createChat(req, res) {
-    const { id } = req.params;
-    const { receiver_id } = req.body;
+  static async createChatRoom(req, res) {
+    const chatInfo = req.body;
     const chatService = new ChatService();
 
     try {
-      const messages = await chatService.createChat(receiver_id, id);
+      const messages = await chatService.createChatRoom(chatInfo);
       return res.json(messages);
     } catch (error) {
       return res
