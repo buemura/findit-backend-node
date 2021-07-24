@@ -1,14 +1,29 @@
 const app = require("../src/server");
+const jwt = require("jsonwebtoken");
 const supertest = require("supertest");
 const request = supertest(app);
 
 jest.setTimeout(30000);
 
-const id = "f76aa4eb-db64-43e4-9d15-cec2aa1f9310";
-const token =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImY3NmFhNGViLWRiNjQtNDNlNC05ZDE1LWNlYzJhYTFmOTMxMCIsImVtYWlsIjoiYnJ1bm8udWVtdXJhQGdtYWlsLmNvbSIsImlhdCI6MTYyNTY4ODUwMCwiZXhwIjoxNjI1NjkyMTAwfQ.dgph8nCdNf_go9sPvO70ZftwGKw4KJ-AYMHN5PoKKmg";
+const user = {
+  email: "bruno.uemura@gmail.com",
+  password: "test",
+};
+
+let token, id;
 
 describe("Test users routes return", () => {
+  beforeAll(async () => {
+    token = await request
+      .post("/api/auth/login")
+      .send(user)
+      .then(({ body }) => {
+        return body.token;
+      });
+
+    id = jwt.decode(token).id;
+  });
+
   it("should return all users information", async () => {
     const response = await request.get("/api/users");
 
