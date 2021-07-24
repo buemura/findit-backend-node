@@ -1,6 +1,12 @@
 require("dotenv").config();
 const db = require("../src/app/database/models");
 const Sequelize = require("sequelize");
+const redis = require("../src/app/middlewares/handleBlacklist");
+
+afterAll(async () => {
+  await redis.quit();
+  await new Promise((resolve) => setTimeout(() => resolve(), 500)); // avoid jest open handle error
+});
 
 describe("Test database connectivity", () => {
   it("should return true on connectivity test", async () => {

@@ -5,7 +5,7 @@
   "main": "src/server.js",
   "scripts": {
     "dev": "nodemon src/server.js --ignore __test__",
-    "test": "jest --passWithNoTests",
+    "test": "jest --passWithNoTests --detectOpenHandles --forceExit --testTimeout 60000 || exit 1",
     "docker": "sh ./scripts/dockerize.sh",
     "migrations": "npx sequelize-cli db:migrate",
     "seeds": "npx sequelize-cli db:seed:all",
