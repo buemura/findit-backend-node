@@ -3,7 +3,7 @@ const { StatusCodes } = require("http-status-codes");
 const path = require("path");
 
 class UsersController {
-  static async showAllUsers(req, res) {
+  static async showAllUsers(_, res) {
     const usersService = new UsersService();
 
     try {
@@ -48,6 +48,11 @@ class UsersController {
 
     try {
       const profileImage = await usersService.getProfileImage(id);
+
+      if (!profileImage) {
+        return res.json({ message: "User has no photo" });
+      }
+
       return res.sendFile(
         path.resolve(__dirname, "..", "..", "uploads", profileImage)
       );
