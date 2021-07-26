@@ -5,7 +5,13 @@ require("dotenv").config();
 
 class CommentsService {
   async showAllComments(id) {
-    return await database.Comments.findAll({ where: { service_id: id } });
+    return await database.Comments.findAll({
+      where: { service_id: id },
+      include: {
+        model: database.Users,
+        as: "User",
+      },
+    });
   }
 
   async createComment({ sender_id, comment }, id) {
