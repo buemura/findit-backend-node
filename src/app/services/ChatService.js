@@ -10,6 +10,10 @@ class ChatService {
     return await database.Chats.findAll();
   }
 
+  async showAllChatRoomsByUser(id) {
+    return await database.Messages.findAll({ where: { sender_id: id } });
+  }
+
   async showAllMessages(id) {
     return await database.Messages.findAll({ where: { chat_id: id } });
   }

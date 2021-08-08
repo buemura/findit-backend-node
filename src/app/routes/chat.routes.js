@@ -6,7 +6,16 @@ const chat = Router();
 
 // ROUTES
 chat.get("/api/chats", authMiddleware, ChatController.showAllChatRooms);
-chat.get("/api/chat/:id", authMiddleware, ChatController.showAllMessages);
+chat.get(
+  "/api/chats/:id",
+  authMiddleware,
+  ChatController.showAllChatRoomsByUser
+);
+chat.get(
+  "/api/chat/messages/:id",
+  authMiddleware,
+  ChatController.showAllMessages
+);
 chat.post(
   "/api/chat/create-chat",
   authMiddleware,

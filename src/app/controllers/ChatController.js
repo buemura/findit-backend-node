@@ -16,6 +16,20 @@ class ChatController {
     }
   }
 
+  static async showAllChatRoomsByUser(req, res) {
+    const { id } = req.params;
+    const chatService = new ChatService();
+
+    try {
+      const chats = await chatService.showAllChatRoomsByUser(id);
+      return res.json(chats);
+    } catch (error) {
+      return res
+        .status(StatusCodes.BAD_REQUEST)
+        .json({ message: error.message });
+    }
+  }
+
   static async showAllMessages(req, res) {
     const { id } = req.params;
     const chatService = new ChatService();
