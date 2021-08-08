@@ -11,7 +11,7 @@ class ChatService {
   }
 
   async showAllChatRoomsByUser(id) {
-    return await database.Messages.findAll({ where: { sender_id: id } });
+    return await database.Chats.findAll({ where: { sender_id: id } });
   }
 
   async showAllMessages(id) {
