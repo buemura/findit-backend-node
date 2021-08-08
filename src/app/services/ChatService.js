@@ -40,12 +40,12 @@ class ChatService {
       },
     });
     if (chatExists) {
-      throw new AlreadyExists("Chat room already created");
+      return { chat_id: chatExists.id, message: `Chat Room already exists!` };
     }
 
     // Create Chat Room
-    await database.Chats.create(chatInfo);
-    return { message: `Chat Room created successfully!` };
+    const data = await database.Chats.create(chatInfo);
+    return { chat_id: data.id, message: `Chat Room created successfully!` };
   }
 
   async sendMessage({ sender_id, content }, id) {
