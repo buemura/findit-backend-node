@@ -11,7 +11,11 @@ class ChatService {
   }
 
   async showAllChatRoomsByUser(id) {
-    return await database.Chats.findAll({ where: { sender_id: id } });
+    return await database.Chats.findAll({
+      where: {
+        [Op.or]: [{ sender_id: id }, { receiver_id: id }],
+      },
+    });
   }
 
   async showAllMessages(id) {
@@ -33,9 +37,19 @@ class ChatService {
     // Check if the Chat Room already exists
     const chatExists = await database.Chats.findOne({
       where: {
-        [Op.and]: [
-          { sender_id: chatInfo.sender_id },
-          { receiver_id: chatInfo.receiver_id },
+        [Op.or]: [
+          {
+            [Op.and]: [
+              { sender_id: chatInfo.sender_id },
+              { receiver_id: chatInfo.receiver_id },
+            ],
+          },
+          {
+            [Op.and]: [
+              { sender_id: chatInfo.receiver_id },
+              { receiver_id: chatInfo.sender_id },
+            ],
+          },
         ],
       },
     });
