@@ -7,7 +7,12 @@ const chat = Router();
 // ROUTES
 chat.get("/api/chats", authMiddleware, ChatController.showAllChatRooms);
 chat.get(
-  "/api/chats/:id",
+  "/api/chatsById/:id",
+  authMiddleware,
+  ChatController.showAllChatRoomsById
+);
+chat.get(
+  "/api/chatsByUser/:id",
   authMiddleware,
   ChatController.showAllChatRoomsByUser
 );
