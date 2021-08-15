@@ -19,11 +19,30 @@ class ChatService {
   }
 
   async showAllChatRoomsByUser(id) {
-    return await database.Chats.findAll({
+    const allChats = await database.Chats.findAll({
       where: {
         [Op.or]: [{ sender_id: id }, { receiver_id: id }],
       },
     });
+
+    for (let chat in allChats) {
+      console.log(chat);
+
+      const fetchID =
+        allChats[chat].sender_id === id
+          ? allChats[chat].receiver_id
+          : allChats[chat].sender_id;
+
+      const userInformation = await database.Users.findOne({
+        where: {
+          id: fetchID,
+        },
+      });
+
+      allChats[chat].dataValues.userInfo = userInformation;
+    }
+
+    return allChats;
   }
 
   async showAllMessages(id) {

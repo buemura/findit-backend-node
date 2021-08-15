@@ -31,6 +31,22 @@ class ServicesService {
       include: {
         model: database.Users,
         as: "User",
+        attributes: [
+          "id",
+          "name",
+          "email",
+          "user_photo",
+          "city",
+          "state",
+          "country",
+          "phone",
+          "occupation",
+          "about_me",
+          "email_verified",
+          "createdAt",
+          "updatedAt",
+          "deletedAt",
+        ],
       },
     });
   }
