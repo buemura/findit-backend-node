@@ -66,6 +66,10 @@ class ServicesService {
     return count;
   }
 
+  async showServicesCategories() {
+    return await database.Categories.findAll();
+  }
+
   async updateService(serviceInfo, id) {
     await checkServiceExists(id);
 

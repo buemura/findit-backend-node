@@ -56,6 +56,19 @@ class ServicesController {
     }
   }
 
+  static async showServicesCategories(_, res) {
+    const servicesService = new ServicesService();
+
+    try {
+      const categories = await servicesService.showServicesCategories();
+      return res.json(categories);
+    } catch (error) {
+      return res
+        .status(StatusCodes.BAD_REQUEST)
+        .json({ message: error.message });
+    }
+  }
+
   static async createService(request, response) {
     const serviceInfo = request.body;
     const servicesService = new ServicesService();

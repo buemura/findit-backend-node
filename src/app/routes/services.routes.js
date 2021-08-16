@@ -12,6 +12,10 @@ Services.get(
   ServicesController.showServicesQuantity
 );
 Services.get("/api/services/user/:id", ServicesController.showServicesFromUser);
+Services.get(
+  "/api/services/all/categories",
+  ServicesController.showServicesCategories
+);
 Services.post(
   "/api/services/",
   authMiddleware,
