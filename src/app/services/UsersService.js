@@ -30,10 +30,6 @@ class UsersService {
 
     const { user_photo } = userExists;
 
-    if (!user_photo) {
-      return user_photo;
-    }
-
     return user_photo;
   }
 
