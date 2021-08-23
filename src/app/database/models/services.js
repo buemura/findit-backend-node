@@ -12,7 +12,7 @@ module.exports = (sequelize, DataTypes) => {
   }
   Services.init(
     {
-      user_id: DataTypes.INTEGER,
+      user_id: DataTypes.UUID,
       title: DataTypes.STRING,
       category: DataTypes.STRING,
       description: DataTypes.STRING,
