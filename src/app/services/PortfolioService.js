@@ -28,7 +28,7 @@ class PortfolioService {
   }
 
   async uploadPortfolioImages(files, user_id) {
-    await checkUserExists(id);
+    await checkUserExists(user_id);
 
     files.forEach(async ({ filename }) => {
       await database.Portfolios.create(
