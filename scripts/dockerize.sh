@@ -14,6 +14,7 @@ if [[ $status_code -ne 200 ]] ; then
   sleep 30
   docker exec node-1 npm run migrations
   docker exec node-1 npm run seeds
+  docker exec node-1 node src/app/database/mongoSeeds/categoriesSeeds.js
 else
   echo -e "${green}[==== Migrations already executed ====]${reset}"
   exit 0

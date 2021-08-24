@@ -1,8 +1,13 @@
-const database = require("../database/models");
+const mongoose = require("mongoose");
+const Category = require("../database/schemas/categories");
 
 class CategoriesService {
   async showAllCategories() {
-    return await database.Categories.findAll();
+    mongoose.connect(process.env.MONGO_URL, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    });
+    return await Category.find();
   }
 }
 
