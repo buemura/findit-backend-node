@@ -53,41 +53,41 @@ services:
     volumes:
       - ./src/uploads:/usr/server/src/uploads
 
-  node2:
-    build:
-      dockerfile: ./docker/node.dockerfile
-      context: .
-    image: uemurabruno/findit-backend
-    container_name: node-2
-    depends_on:
-      - db
-      - redis
-      - mongo
-    restart: always
-    networks:
-      - production-network
-    ports:
-      - "4000"
-    volumes:
-      - ./src/uploads:/usr/server/src/uploads
+  # node2:
+  #   build:
+  #     dockerfile: ./docker/node.dockerfile
+  #     context: .
+  #   image: uemurabruno/findit-backend
+  #   container_name: node-2
+  #   depends_on:
+  #     - db
+  #     - redis
+  #     - mongo
+  #   restart: always
+  #   networks:
+  #     - production-network
+  #   ports:
+  #     - "4000"
+  #   volumes:
+  #     - ./src/uploads:/usr/server/src/uploads
 
-  node3:
-    build:
-      dockerfile: ./docker/node.dockerfile
-      context: .
-    image: uemurabruno/findit-backend
-    container_name: node-3
-    depends_on:
-      - db
-      - redis
-      - mongo
-    restart: always
-    networks:
-      - production-network
-    ports:
-      - "4000"
-    volumes:
-      - ./src/uploads:/usr/server/src/uploads
+  # node3:
+  #   build:
+  #     dockerfile: ./docker/node.dockerfile
+  #     context: .
+  #   image: uemurabruno/findit-backend
+  #   container_name: node-3
+  #   depends_on:
+  #     - db
+  #     - redis
+  #     - mongo
+  #   restart: always
+  #   networks:
+  #     - production-network
+  #   ports:
+  #     - "4000"
+  #   volumes:
+  #     - ./src/uploads:/usr/server/src/uploads
 
   nginx:
     build:
@@ -101,8 +101,8 @@ services:
       - production-network
     depends_on:
       - node1
-      - node2
-      - node3
+      # - node2
+      # - node3
 
 networks:
   production-network:

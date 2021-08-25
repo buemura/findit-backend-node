@@ -13,7 +13,11 @@ const seedCategory = async () => {
       useUnifiedTopology: true,
     });
 
-    Category.remove();
+    const data = await Category.find();
+
+    if (data.length > 0) {
+      return;
+    }
 
     for (let i = 0; i < categories.length; i++) {
       categoriesToAdd.push({
@@ -22,8 +26,7 @@ const seedCategory = async () => {
         createdAt: new Date(),
       });
     }
-
-    Category.create(categoriesToAdd);
+    await Category.create(categoriesToAdd);
   } catch (error) {
     console.log(error);
   }
