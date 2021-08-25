@@ -2,7 +2,6 @@ const express = require("express");
 const cors = require("cors");
 const logger = require("morgan");
 const routes = require("../app/routes");
-const seedCategory = require("../app/database/mongoSeeds/categoriesSeeds");
 
 module.exports = () => {
   const app = express();

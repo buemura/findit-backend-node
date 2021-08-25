@@ -38,7 +38,7 @@ module.exports = {
         },
         {
           id: uuidv4(),
-          category: "Design",
+          category: "Design & AudioVisual",
           createdAt: new Date(),
           updatedAt: new Date(),
         },
@@ -56,12 +56,6 @@ module.exports = {
         },
         {
           id: uuidv4(),
-          category: "Fotografia & AudioVisual",
-          createdAt: new Date(),
-          updatedAt: new Date(),
-        },
-        {
-          id: uuidv4(),
           category: "Moda & Beleza",
           createdAt: new Date(),
           updatedAt: new Date(),
@@ -74,7 +68,7 @@ module.exports = {
         },
         {
           id: uuidv4(),
-          category: "Tenologia",
+          category: "Tecnologia",
           createdAt: new Date(),
           updatedAt: new Date(),
         },
