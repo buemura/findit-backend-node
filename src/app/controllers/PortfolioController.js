@@ -51,6 +51,27 @@ class PortfolioController {
     }
   }
 
+  static async getPortfolioImage(req, res) {
+    const portfolioService = new PortfolioService();
+    const { id, image_id } = req.params;
+
+    try {
+      const portfolio = await portfolioService.getPortfolioImage(id, image_id);
+
+      if (!portfolio) {
+        return res.json({ message: "User has no portfolio" });
+      }
+
+      return res.sendFile(
+        path.resolve(__dirname, "..", "..", "uploads", portfolio)
+      );
+    } catch (error) {
+      return res
+        .status(StatusCodes.BAD_REQUEST)
+        .json({ message: error.message });
+    }
+  }
+
   static async uploadPortfolioImages(req, res) {
     const portfolioService = new PortfolioService();
     const { id } = req.params;

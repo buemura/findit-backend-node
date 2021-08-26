@@ -1,40 +1,56 @@
-const database = require("../database/models");
-
-async function checkUserExists(id) {
-  const userExists = await database.Users.findOne({ where: { id } });
-
-  if (!userExists) {
-    throw new NotFound("User");
-  }
-
-  return userExists;
-}
+const mongoose = require("mongoose");
+const Portfolios = require("../database/schemas/Portfolios");
 
 class PortfolioService {
+  constructor() {
+    mongoose.connect(process.env.MONGO_URL, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    });
+  }
+
   async showAllUsersPortfolios() {
-    return await database.Portfolios.findAll();
+    return await Portfolios.find();
   }
 
   async showUserPortfolios(id) {
-    return await database.Portfolios.findAll({ where: { user_id: id } });
+    return await Portfolios.find({ user_id: id });
   }
 
   async getPortfolioImages(id) {
-    const portfolio = await database.Portfolios.findAll({
-      where: { id },
+    const portfolio = await Portfolios.find({ user_id: id });
+    const result = [];
+
+    portfolio.map((p) => {
+      result.push(p.userPortfolios);
     });
 
-    return portfolio[0].dataValues.image;
+    return result;
+  }
+
+  async getPortfolioImage(id, image_id) {
+    const portfolio = await Portfolios.find(
+      { user_id: id },
+      { userPortfolios: { $elemMatch: { _id: image_id } } }
+    );
+
+    return portfolio[0].userPortfolios[0].photo_url;
   }
 
   async uploadPortfolioImages(files, user_id) {
-    await checkUserExists(user_id);
+    const query = { user_id };
+
+    const portfolioExists = await Portfolios.find(query);
+
+    if (portfolioExists.length === 0) {
+      await Portfolios.create({ user_id, userPhoto: [] });
+    }
 
     files.forEach(async ({ filename }) => {
-      await database.Portfolios.create(
-        { user_id, image: filename },
-        { where: { user_id } }
-      );
+      const updateDocument = {
+        $push: { userPortfolios: { photo_url: filename } },
+      };
+      await Portfolios.updateOne(query, updateDocument);
     });
 
     return { message: `UPDATED user id ${user_id} portfolio added` };

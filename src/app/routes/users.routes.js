@@ -27,7 +27,14 @@ users.get(
   PortfolioController.showAllUsersPortfolios
 );
 users.get("/api/users/:id/portfolios", PortfolioController.showUserPortfolios);
-users.get("/api/portfolios-image/:id", PortfolioController.getPortfolioImages);
+users.get(
+  "/api/users/:id/portfolios-image",
+  PortfolioController.getPortfolioImages
+);
+users.get(
+  "/api/users/:id/portfolios-image/:image_id",
+  PortfolioController.getPortfolioImage
+);
 users.post(
   "/api/users/:id/portfolios/upload",
   authMiddleware,
