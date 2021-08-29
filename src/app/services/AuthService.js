@@ -2,7 +2,7 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const database = require("../database/models");
 const blacklist = require("../middlewares/handleBlacklist");
-const { EmailConfirmation } = require("../../utils/emails");
+const EmailSender = require("../../utils/emailSender");
 const AlreadyExists = require("../errors/AlreadyExists");
 require("dotenv").config();
 
@@ -30,10 +30,20 @@ class AuthService {
     });
 
     const url = generateURL("/api/auth/email-confirmation/", user.id);
-    const emailConfirmation = new EmailConfirmation(email, url);
-    emailConfirmation.sendEmail().catch(console.log);
 
-    return { message: "User registered successfully!" };
+    const destination = user.email;
+    const subject = "Email Confirmation";
+    const text = `Hi! Please confirm your registration by clicking the URL below: ${url}`;
+    const html = `<h1>Hi!</h1> Please confirm your registration by clicking the URL below:<br></br> <a href="${url}">${url}</a>`;
+
+    const emailSent = await EmailSender.sendEmail(
+      destination,
+      subject,
+      text,
+      html
+    );
+
+    return { message: "User registered successfully!", emailSent };
   }
 
   async confirmRegistration(id) {
