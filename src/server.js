@@ -1,6 +1,5 @@
 const customExpress = require("./config/customExpress");
 const app = customExpress();
-require("./config/redis");
 
 const PORT = process.env.PORT || 4000;
 
