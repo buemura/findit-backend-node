@@ -50,7 +50,7 @@ class UsersController {
       const profileImage = await usersService.getProfileImage(id);
 
       if (!profileImage) {
-        return res.json({ message: "User has no photo" });
+        return res.json({ message: "User has no photo", hasPhoto: false });
       }
 
       return res.sendFile(
