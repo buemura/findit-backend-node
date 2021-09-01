@@ -2,10 +2,11 @@ const mongoose = require("mongoose");
 
 const portfolioSchema = new mongoose.Schema(
   {
-    user_id: String,
+    userId: String,
     userPortfolios: [
       {
-        photo_url: String,
+        photoUrl: String,
+        photoDescription: String,
       },
     ],
     createdAt: {

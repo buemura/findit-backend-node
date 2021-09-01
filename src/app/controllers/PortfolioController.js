@@ -78,7 +78,7 @@ class PortfolioController {
     const { files } = req;
 
     try {
-      const upload = await portfolioService.uploadPortfolioImages(files, id);
+      const upload = await portfolioService.uploadPortfolioImages(id, files);
       return res.json(upload);
     } catch (error) {
       return res

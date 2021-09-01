@@ -14,11 +14,11 @@ class PortfolioService {
   }
 
   async showUserPortfolios(id) {
-    return await Portfolios.find({ user_id: id });
+    return await Portfolios.find({ userId: id });
   }
 
   async getPortfolioImages(id) {
-    const portfolio = await Portfolios.find({ user_id: id });
+    const portfolio = await Portfolios.find({ userId: id });
     const result = [];
 
     portfolio.map((p) => {
@@ -30,30 +30,31 @@ class PortfolioService {
 
   async getPortfolioImage(id, image_id) {
     const portfolio = await Portfolios.find(
-      { user_id: id },
+      { userId: id },
       { userPortfolios: { $elemMatch: { _id: image_id } } }
     );
 
-    return portfolio[0].userPortfolios[0].photo_url;
+    return portfolio[0].userPortfolios[0].photoUrl;
   }
 
-  async uploadPortfolioImages(files, user_id) {
-    const query = { user_id };
+  async uploadPortfolioImages(userId, files) {
+    const query = { userId };
 
     const portfolioExists = await Portfolios.find(query);
 
     if (portfolioExists.length === 0) {
-      await Portfolios.create({ user_id, userPhoto: [] });
+      await Portfolios.create({ userId, userPhoto: [] });
     }
 
     files.forEach(async ({ filename }) => {
       const updateDocument = {
-        $push: { userPortfolios: { photo_url: filename } },
+        $push: { userPortfolios: { photoUrl: filename, photoDescription: "" } },
       };
+
       await Portfolios.updateOne(query, updateDocument);
     });
 
-    return { message: `UPDATED user id ${user_id} portfolio added` };
+    return { message: `UPDATED user id ${userId} portfolio added` };
   }
 }
 
