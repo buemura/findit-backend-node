@@ -1,5 +1,12 @@
 node_modules/
+
+package-lock.json
+yarn.lock
+
 pgdata/
+
 .env*
+
 src/uploads/*
+
 __tests__/coverage/*

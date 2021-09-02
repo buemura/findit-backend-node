@@ -4,6 +4,11 @@ const Portfolios = require("../database/schemas/Portfolios");
 class PortfolioService {
   constructor() {
     mongoose.connect(process.env.MONGO_URL, {
+      auth: {
+        authSource: "admin",
+      },
+      user: process.env.MONGO_USER,
+      pass: process.env.MONGO_PASS,
       useNewUrlParser: true,
       useUnifiedTopology: true,
     });
