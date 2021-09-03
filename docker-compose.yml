@@ -51,7 +51,7 @@ services:
     ports:
       - "8080:4000"
     volumes:
-      - ./src/uploads:/usr/server/src/uploads
+      - ./src/uploads:/usr/app/src/uploads
 
   # node2:
   #   build:
@@ -69,7 +69,7 @@ services:
   #   ports:
   #     - "4000"
   #   volumes:
-  #     - ./src/uploads:/usr/server/src/uploads
+  #     - ./src/uploads:/usr/app/src/uploads
 
   # node3:
   #   build:
@@ -87,7 +87,7 @@ services:
   #   ports:
   #     - "4000"
   #   volumes:
-  #     - ./src/uploads:/usr/server/src/uploads
+  #     - ./src/uploads:/usr/app/src/uploads
 
   # nginx:
   #   build:
