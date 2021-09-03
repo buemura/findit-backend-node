@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import { CommentsService } from "../services/CommentsService";
 import { StatusCodes } from "http-status-codes";
 
-class CommentsController {
+export class CommentsController {
   static async showAllComments(req: Request, res: Response) {
     const { id } = req.params;
     const commentsService = new CommentsService();
@@ -35,5 +35,3 @@ class CommentsController {
     }
   }
 }
-
-export { CommentsController };

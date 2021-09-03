@@ -28,6 +28,4 @@ const fileFilter = (req, file, cb) => {
   }
 };
 
-const multerConfig = { dest, storage, fileFilter };
-
-export default multerConfig;
+export const multerConfig = { dest, storage, fileFilter };

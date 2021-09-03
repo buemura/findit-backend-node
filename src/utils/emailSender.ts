@@ -1,6 +1,6 @@
 import * as nodemailer from "nodemailer";
 
-class EmailSender {
+export class EmailSender {
   public host: string = process.env.EMAIL_HOST;
   public port: number = 587;
   public user: string = process.env.EMAIL_USER;
@@ -26,8 +26,6 @@ class EmailSender {
       tls: { rejectUnauthorized: false },
     });
 
-    console.log(mailOptions);
-
     transporter.sendMail(mailOptions, function (error, info) {
       if (error) {
         return error;
@@ -37,5 +35,3 @@ class EmailSender {
     });
   }
 }
-
-export { EmailSender };

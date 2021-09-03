@@ -1,7 +1,7 @@
 import { StatusCodes } from "http-status-codes";
 
-class AlreadyExists extends Error {
-  public status: Number;
+export class AlreadyExists extends Error {
+  public status: number;
 
   constructor(message: string) {
     super();
@@ -10,5 +10,3 @@ class AlreadyExists extends Error {
     this.name = "AlreadyExists";
   }
 }
-
-export { AlreadyExists };

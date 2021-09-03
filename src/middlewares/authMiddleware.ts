@@ -10,7 +10,7 @@ interface TokenPayload {
   exp: number;
 }
 
-const authMiddleware = async (
+export const authMiddleware = async (
   req: Request,
   res: Response,
   next: NextFunction
@@ -37,5 +37,3 @@ const authMiddleware = async (
       .json({ message: error.message });
   }
 };
-
-export { authMiddleware };

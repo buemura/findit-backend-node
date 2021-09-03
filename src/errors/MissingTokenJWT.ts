@@ -1,6 +1,6 @@
 import { StatusCodes } from "http-status-codes";
 
-class MissingTokenJWT extends Error {
+export class MissingTokenJWT extends Error {
   public status: Number;
 
   constructor() {
@@ -10,5 +10,3 @@ class MissingTokenJWT extends Error {
     this.name = "MissingTokenJWT";
   }
 }
-
-export { MissingTokenJWT };

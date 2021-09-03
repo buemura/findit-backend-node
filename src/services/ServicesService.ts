@@ -16,7 +16,7 @@ interface IServicesCreate {
   country: string;
 }
 
-class ServicesService {
+export class ServicesService {
   private servicesRepository: Repository<Service>;
   private usersRepository: Repository<User>;
 
@@ -93,5 +93,3 @@ class ServicesService {
     });
   }
 }
-
-export { ServicesService };

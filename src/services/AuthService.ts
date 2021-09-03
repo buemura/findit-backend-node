@@ -15,7 +15,7 @@ interface IUsersAuth {
   password?: string;
 }
 
-class AuthService {
+export class AuthService {
   private usersRepository: Repository<User>;
 
   constructor() {
@@ -111,5 +111,3 @@ class AuthService {
     }
   }
 }
-
-export { AuthService };

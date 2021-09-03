@@ -3,7 +3,7 @@ import { AuthService } from "../services/AuthService";
 import { StatusCodes } from "http-status-codes";
 import { MissingData } from "../errors/MissingData";
 
-class AuthController {
+export class AuthController {
   static checkRegistrationFields(
     name: string,
     email: string,
@@ -84,5 +84,3 @@ class AuthController {
     }
   }
 }
-
-export { AuthController };

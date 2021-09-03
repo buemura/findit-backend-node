@@ -9,7 +9,7 @@ import {
 import { v4 as uuid } from "uuid";
 
 @Entity("users")
-class User {
+export class User {
   @PrimaryColumn()
   id: string;
 
@@ -59,5 +59,3 @@ class User {
     this.email_verified = false;
   }
 }
-
-export { User };

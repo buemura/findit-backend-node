@@ -10,7 +10,7 @@ interface INewComment {
   comment: string;
 }
 
-class CommentsService {
+export class CommentsService {
   private commentsRepository: Repository<Comment>;
   private servicesRepository: Repository<Service>;
 
@@ -47,5 +47,3 @@ class CommentsService {
     return { message: `Comment ${response.id} posted successfully!` };
   }
 }
-
-export { CommentsService };

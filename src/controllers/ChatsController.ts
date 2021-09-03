@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import { ChatsService } from "../services/ChatsService";
 import { StatusCodes } from "http-status-codes";
 
-class ChatsController {
+export class ChatsController {
   static async showAllChatRooms(req: Request, res: Response) {
     const chatsService = new ChatsService();
 
@@ -87,5 +87,3 @@ class ChatsController {
     }
   }
 }
-
-export { ChatsController };

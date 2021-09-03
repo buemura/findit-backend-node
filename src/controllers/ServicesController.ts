@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import { ServicesService } from "../services/ServicesService";
 import { StatusCodes } from "http-status-codes";
 
-class ServicesController {
+export class ServicesController {
   static async showAllServices(req: Request, res: Response) {
     const servicesService = new ServicesService();
     const { category, city, state, country } = req.query;
@@ -128,5 +128,3 @@ class ServicesController {
     }
   }
 }
-
-export { ServicesController };

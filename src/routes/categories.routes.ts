@@ -1,8 +1,6 @@
 import { Router } from "express";
 import { CategoriesController } from "../controllers/CategoriesController";
 
-const categories = Router();
+export const categories = Router();
 
-categories.get("/api/categories", CategoriesController.showAllCategories);
-
-export { categories };
+categories.get("/categories", CategoriesController.showAllCategories);

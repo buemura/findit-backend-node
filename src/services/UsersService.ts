@@ -36,7 +36,7 @@ interface IUsersCreate {
   email_verified?: boolean;
 }
 
-class UsersService {
+export class UsersService {
   private usersRepository: Repository<User>;
 
   constructor() {
@@ -99,5 +99,3 @@ class UsersService {
     return { message: `DELETED user id ${id}` };
   }
 }
-
-export { UsersService };

@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import { CategoriesService } from "../services/CategoriesService";
 import { StatusCodes } from "http-status-codes";
 
-class CategoriesController {
+export class CategoriesController {
   static async showAllCategories(_: Request, res: Response) {
     const categoriesService = new CategoriesService();
 
@@ -16,5 +16,3 @@ class CategoriesController {
     }
   }
 }
-
-export { CategoriesController };

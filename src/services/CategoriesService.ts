@@ -2,7 +2,7 @@ import { getCustomRepository, Repository } from "typeorm";
 import { Category } from "../models/Category";
 import { CategoriesRepository } from "../repositories/CategoriesRepository";
 
-class CategoriesService {
+export class CategoriesService {
   private categoriesRepository: Repository<Category>;
 
   constructor() {
@@ -13,5 +13,3 @@ class CategoriesService {
     return await this.categoriesRepository.find();
   }
 }
-
-export { CategoriesService };

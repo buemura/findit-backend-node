@@ -1,11 +1,11 @@
-import blacklist from "../config/redis";
+import { redisConnection } from "../config/redis";
 import jwt from "jsonwebtoken";
 import { createHash } from "crypto";
 import { promisify } from "util";
 
-const existsAsync = promisify(blacklist.exists).bind(blacklist);
-const setAsync = promisify(blacklist.set).bind(blacklist);
-const quitRedis = promisify(blacklist.quit).bind(blacklist);
+const existsAsync = promisify(redisConnection.exists).bind(redisConnection);
+const setAsync = promisify(redisConnection.set).bind(redisConnection);
+const quitRedis = promisify(redisConnection.quit).bind(redisConnection);
 
 const hashfyToken = (token: string) => {
   return createHash("sha256").update(token).digest("hex");
@@ -16,7 +16,7 @@ const add = async (token: string) => {
   const tokenExpiration = decodedToken.exp;
   const tokenHash = hashfyToken(token);
   await setAsync(tokenHash, "");
-  blacklist.expireat(token, tokenExpiration);
+  redisConnection.expireat(token, tokenExpiration);
 };
 
 const tokenExists = async (token: string) => {

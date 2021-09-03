@@ -8,16 +8,11 @@ import { services } from "./services.routes";
 import { categories } from "./categories.routes";
 import { chats } from "./chats.routes";
 
-const routes = Router();
+export const routes = Router();
 
-// ROUTES
 routes
   .get("/", (req: Request, res: Response) => {
-    res.send({
-      message: "You are in the backend API",
-    });
+    res.send({ message: "You are in the backend API" });
   })
   .use("/api-docs", swaggerUI.serve, swaggerUI.setup(swaggerDoc))
-  .use(auth, users, services, categories, chats);
-
-export { routes };
+  .use("/api", auth, users, services, categories, chats);

@@ -12,7 +12,7 @@ interface IMessageSend {
   content: string;
 }
 
-class ChatsService {
+export class ChatsService {
   private chatsRepository: Repository<Chat>;
   private messagesRepository: Repository<Message>;
   private usersRepository: Repository<User>;
@@ -134,5 +134,3 @@ class ChatsService {
     return { message: `Message ${messages.id} sent successfully!` };
   }
 }
-
-export { ChatsService };

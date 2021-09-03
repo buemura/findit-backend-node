@@ -2,23 +2,17 @@ import { Router } from "express";
 import { authMiddleware } from "../middlewares/authMiddleware";
 import { ServicesController } from "../controllers/ServicesController";
 
-const services = Router();
+export const services = Router();
 
 services
-  .get("/api/services", ServicesController.showAllServices)
-  .get("/api/services/:id", ServicesController.showOneService)
-  .get("/api/services/all/count", ServicesController.showServicesQuantity)
-  .get("/api/services/user/:id", ServicesController.showServicesFromUser)
+  .get("/services", ServicesController.showAllServices)
+  .get("/services/:id", ServicesController.showOneService)
+  .get("/services/all/count", ServicesController.showServicesQuantity)
+  .get("/services/user/:id", ServicesController.showServicesFromUser)
   // .get(
-  //   "/api/services/all/categories",
+  //   "/services/all/categories",
   //   ServicesController.showServicesCategories
   // )
-  .post("/api/services", authMiddleware, ServicesController.createService)
-  .put("/api/services/:id", authMiddleware, ServicesController.updateService)
-  .delete(
-    "/api/services/:id",
-    authMiddleware,
-    ServicesController.deleteService
-  );
-
-export { services };
+  .post("/services", authMiddleware, ServicesController.createService)
+  .put("/services/:id", authMiddleware, ServicesController.updateService)
+  .delete("/services/:id", authMiddleware, ServicesController.deleteService);
