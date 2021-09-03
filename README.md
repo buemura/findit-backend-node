@@ -5,21 +5,47 @@ This application expect a HTTP request from Client Frontend and it returns a JSO
 
 ## Technologies
 
-In this application the technologies below will be used:
+In this application the technologies below was used:
 
-- Node.js
-- Express
-- Heroku
+<a href="https://nodejs.org/en/" target="_blank">
+  <img src="https://cdn.iconscout.com/icon/free/png-512/node-js-1174925.png" width="32px" heigth="32px"> 
+</a>
+<a href="https://expressjs.com/pt-br/" target="_blank">
+  <img src="https://img2.pngio.com/express-js-png-5-png-image-expressjs-png-800_800.png" width="32px" heigth="32px"> 
+</a>
+<a href="https://sequelize.org/" target="_blank">
+  <img src="https://sequelize.org/v3/images/logo-small.png" width="32.52px" heigth="30px">
+</a>
+<a href="https://www.postgresql.org/" target="_blank">
+  <img src="https://www.postgresql.org/media/img/about/press/elephant.png" width="30px" heigth="30px">
+</a>
+<a href="https://redis.io/" target="_blank">
+  <img src="https://img.icons8.com/color/452/redis.png" width="30px" heigth="30px">
+</a>
+<a href="https://www.nginx.com/" target="_blank">
+  <img src="https://img.icons8.com/color/452/nginx.png" width="30px" heigth="30px">
+</a>
+<a href="https://www.docker.com/" target="_blank">
+  <img src="https://www.docker.com/sites/default/files/d8/2019-07/vertical-logo-monochromatic.png" width="30px" heigth="30px">
+</a>
+<a href="https://heroku.com/" target="_blank">
+  <img src="https://image.flaticon.com/icons/png/512/873/873120.png" width="30px" heigth="30px">
+</a>
+<br></br>
+
+![alt text](./docs/backend-architecture.png)
+
+![alt text](./docs/API-workflow.png)
 
 ## Setup
 
 Firstly you can clone by using the command below:
 
 ```bash
-git clone https://github.com/BrunoUemura/findit-backend-ts.git
+git clone https://github.com/BrunoUemura/findit-backend-node.git
 ```
 
-Or download the zip file directly from [Github](https://github.com/BrunoUemura/findit-backend-ts.git) and unzip it.
+Or download the zip file directly from [Github](https://github.com/BrunoUemura/findit-backend-node/archive/refs/heads/master.zip) and unzip it.
 
 After, downloading open the project direcotiry and run the following commands:
 
@@ -28,16 +54,24 @@ After, downloading open the project direcotiry and run the following commands:
 _Make sure to check the environment variables_
 
 - To install the dependencies `npm install`
-- To run the database migrations `npm run typeorm migrations:run`
+- To run the database migrations `npx sequelize-cli db:migrate`
 - To run the project `npm run dev`
+
+### Test environment
+
+_Make sure to check the environment variables_
+For testing environment, it is recomended to use docker.
+
+Run the Dockerize Script in bash.
+
+- To run the dockerize script `npm run docker`
 
 ### Production environment
 
 _Make sure to check the environment variables_
 
 - To install the dependencies `npm install`
-- To build the project `npm run build`
-- To run the database migrations `npx typeorm migration:run`
+- To run the database migrations `npx sequelize-cli db:migrate`
 - To run the project `npm start`
 
 ## How it works
