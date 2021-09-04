@@ -5,6 +5,8 @@ import { StatusCodes } from "http-status-codes";
 export class CommentsController {
   static async showAllComments(req: Request, res: Response) {
     const { id } = req.params;
+    console.log(id);
+
     const commentsService = new CommentsService();
 
     try {
