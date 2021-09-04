@@ -32,7 +32,7 @@ export class ChatsService {
   }
 
   async showAllChatRoomsByUser(id: string) {
-    const allChats = await this.chatsRepository.find({
+    const allChats: any = await this.chatsRepository.find({
       where: [
         {
           sender_id: id,
@@ -55,9 +55,7 @@ export class ChatsService {
         },
       });
 
-      console.log(allChats[chat]);
-
-      //   allChats[chat].dataValues.userInfo = userInformation;
+      allChats[chat].userInfo = userInformation;
     }
 
     return allChats;
