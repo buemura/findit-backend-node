@@ -42,9 +42,7 @@ export class PortfolioController {
         return res.json({ message: "User has no portfolio" });
       }
 
-      return res.sendFile(
-        path.resolve(__dirname, "..", "..", "uploads", portfolio)
-      );
+      return res.sendFile(`../`);
     } catch (error) {
       return res
         .status(StatusCodes.BAD_REQUEST)
@@ -63,9 +61,7 @@ export class PortfolioController {
         return res.json({ message: "User has no portfolio" });
       }
 
-      return res.sendFile(
-        path.resolve(__dirname, "..", "..", "uploads", portfolio)
-      );
+      return res.sendFile(path.resolve(__dirname, "..", "uploads", portfolio));
     } catch (error) {
       return res
         .status(StatusCodes.BAD_REQUEST)
