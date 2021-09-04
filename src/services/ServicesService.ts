@@ -1,4 +1,4 @@
-import { getCustomRepository, Repository } from "typeorm";
+import { getCustomRepository, Like, Repository } from "typeorm";
 import { Service } from "../models/Service";
 import { User } from "../models/User";
 import { ServicesRepository } from "../repositories/ServicesRepository";
@@ -44,9 +44,27 @@ export class ServicesService {
   }
 
   async showAllServices(where: any) {
+    const {
+      title = "%",
+      category = "%",
+      city = "%",
+      state = "%",
+      country = "%",
+    } = where;
+
+    if (Object.keys(where).length === 0) {
+      return await this.servicesRepository.find({ relations: ["user"] });
+    }
+
     return await this.servicesRepository.find({
-      where: { ...where },
       relations: ["user"],
+      where: {
+        title: Like(`%${title}%`),
+        category: Like(`%${category}%`),
+        city: Like(`%${city}%`),
+        state: Like(`%${state}%`),
+        country: Like(`%${country}%`),
+      },
     });
   }
 

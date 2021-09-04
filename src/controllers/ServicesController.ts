@@ -5,9 +5,12 @@ import { StatusCodes } from "http-status-codes";
 export class ServicesController {
   static async showAllServices(req: Request, res: Response) {
     const servicesService = new ServicesService();
-    const { category, city, state, country } = req.query;
+    const { title, category, city, state, country } = req.query;
     const where: any = {};
 
+    if (title) {
+      where.title = title;
+    }
     if (category) {
       where.category = category;
     }
