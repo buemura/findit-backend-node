@@ -32,6 +32,16 @@ export class CreateChats1630622809872 implements MigrationInterface {
             default: "now()",
           },
         ],
+        foreignKeys: [
+          {
+            name: "FKUsers",
+            referencedTableName: "users",
+            referencedColumnNames: ["id"],
+            columnNames: ["sender_id"],
+            onDelete: "SET NULL",
+            onUpdate: "SET NULL",
+          },
+        ],
       })
     );
   }

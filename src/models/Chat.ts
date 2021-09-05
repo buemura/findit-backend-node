@@ -4,12 +4,19 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   PrimaryColumn,
+  JoinColumn,
+  ManyToOne,
 } from "typeorm";
 
 import { v4 as uuid } from "uuid";
+import { User } from "./User";
 
 @Entity("chats")
 export class Chat {
+  @JoinColumn({ name: "sender_id" })
+  @ManyToOne(() => User)
+  user: User;
+
   @PrimaryColumn()
   id: string;
 
