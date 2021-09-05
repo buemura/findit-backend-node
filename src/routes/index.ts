@@ -4,6 +4,7 @@ import * as swaggerDoc from "../config/swagger-config.json";
 
 import { auth } from "./auth.routes";
 import { users } from "./users.routes";
+import { portfolios } from "./portfolios.routes";
 import { services } from "./services.routes";
 import { comments } from "./comments.routes";
 import { categories } from "./categories.routes";
@@ -16,4 +17,4 @@ routes
     res.send({ message: "You are in the backend API" });
   })
   .use("/api-docs", swaggerUI.serve, swaggerUI.setup(swaggerDoc))
-  .use("/api", auth, users, services, comments, categories, chats);
+  .use("/api", auth, users, portfolios, services, comments, categories, chats);

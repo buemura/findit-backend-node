@@ -1,9 +1,4 @@
-import {
-  getCustomRepository,
-  Repository,
-  EntityManager,
-  getRepository,
-} from "typeorm";
+import { getCustomRepository, Repository } from "typeorm";
 import { User } from "../models/User";
 import { UsersRepository } from "../repositories/UsersRepository";
 import { NotFound } from "../errors/NotFound";
