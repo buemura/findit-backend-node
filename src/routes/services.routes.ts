@@ -14,5 +14,10 @@ services
   //   ServicesController.showServicesCategories
   // )
   .post("/services", authMiddleware, ServicesController.createService)
+  .post(
+    "/services/complete",
+    authMiddleware,
+    ServicesController.completeService
+  )
   .put("/services/:id", authMiddleware, ServicesController.updateService)
   .delete("/services/:id", authMiddleware, ServicesController.deleteService);

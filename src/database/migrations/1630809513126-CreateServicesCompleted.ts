@@ -1,10 +1,12 @@
 import { MigrationInterface, QueryRunner, Table } from "typeorm";
 
-export class CreateServices1619138228557 implements MigrationInterface {
+export class CreateServicesCompleted1630809513126
+  implements MigrationInterface
+{
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.createTable(
       new Table({
-        name: "services",
+        name: "service_completed",
         columns: [
           {
             name: "id",
@@ -14,38 +16,12 @@ export class CreateServices1619138228557 implements MigrationInterface {
           {
             name: "user_id",
             type: "uuid",
+            isNullable: false,
           },
           {
-            name: "title",
-            type: "varchar",
-          },
-          {
-            name: "category",
-            type: "varchar",
-          },
-          {
-            name: "description",
-            type: "varchar",
-          },
-          {
-            name: "price",
-            type: "varchar",
-          },
-          {
-            name: "city",
-            type: "varchar",
-          },
-          {
-            name: "state",
-            type: "varchar",
-          },
-          {
-            name: "country",
-            type: "varchar",
-          },
-          {
-            name: "completed",
-            type: "boolean",
+            name: "service_id",
+            type: "uuid",
+            isNullable: false,
           },
           {
             name: "created_at",
@@ -67,12 +43,20 @@ export class CreateServices1619138228557 implements MigrationInterface {
             onDelete: "SET NULL",
             onUpdate: "SET NULL",
           },
+          {
+            name: "FKServices",
+            referencedTableName: "services",
+            referencedColumnNames: ["id"],
+            columnNames: ["service_id"],
+            onDelete: "SET NULL",
+            onUpdate: "SET NULL",
+          },
         ],
       })
     );
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    queryRunner.dropTable("services");
+    queryRunner.dropTable("service_completed");
   }
 }

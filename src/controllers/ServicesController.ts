@@ -74,15 +74,29 @@ export class ServicesController {
   //   }
   // }
 
-  static async createService(request: Request, response: Response) {
-    const serviceInfo = request.body;
+  static async createService(req: Request, res: Response) {
+    const serviceInfo = req.body;
     const servicesService = new ServicesService();
 
     try {
       const service = await servicesService.createService(serviceInfo);
-      return response.json(service);
+      return res.json(service);
     } catch (error) {
-      return response
+      return res
+        .status(StatusCodes.BAD_REQUEST)
+        .json({ message: error.message });
+    }
+  }
+
+  static async completeService(req: Request, res: Response) {
+    const servicesService = new ServicesService();
+    const serviceCompleted = req.body;
+
+    try {
+      const service = await servicesService.completeService(serviceCompleted);
+      return res.json(service);
+    } catch (error) {
+      return res
         .status(StatusCodes.BAD_REQUEST)
         .json({ message: error.message });
     }

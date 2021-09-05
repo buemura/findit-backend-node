@@ -31,12 +31,27 @@ export class UsersController {
     }
   }
 
-  static async showUsersQuantity(req: Request, res: Response) {
+  static async showUsersCount(req: Request, res: Response) {
     const usersService = new UsersService();
 
     try {
-      const usersQuantity = await usersService.showUsersQuantity();
-      return res.json(usersQuantity);
+      const usersCount = await usersService.showUsersCount();
+      return res.json(usersCount);
+    } catch (error) {
+      return res
+        .status(StatusCodes.BAD_REQUEST)
+        .json({ message: error.message });
+    }
+  }
+
+  static async showUserCompletedServicesCount(req: Request, res: Response) {
+    const usersService = new UsersService();
+    const { id } = req.params;
+
+    try {
+      const userCompletedServicesCount =
+        await usersService.showUserCompletedServicesCount(id);
+      return res.json(userCompletedServicesCount);
     } catch (error) {
       return res
         .status(StatusCodes.BAD_REQUEST)

@@ -1,6 +1,8 @@
 import { getCustomRepository, Repository } from "typeorm";
 import { User } from "../models/User";
+import { ServiceCompleted } from "../models/ServiceCompleted";
 import { UsersRepository } from "../repositories/UsersRepository";
+import { ServicesCompletedRepository } from "../repositories/ServicesCompletedRepository";
 import { NotFound } from "../errors/NotFound";
 
 interface IUsers {
@@ -33,9 +35,13 @@ interface IUsersCreate {
 
 export class UsersService {
   private usersRepository: Repository<User>;
+  private servicesCompletedRepository: Repository<ServiceCompleted>;
 
   constructor() {
     this.usersRepository = getCustomRepository(UsersRepository);
+    this.servicesCompletedRepository = getCustomRepository(
+      ServicesCompletedRepository
+    );
   }
 
   async checkUserExists(id: string) {
@@ -58,8 +64,17 @@ export class UsersService {
     return await this.usersRepository.findOne(id);
   }
 
-  async showUsersQuantity() {
+  async showUsersCount() {
     const [list, count] = await this.usersRepository.findAndCount();
+    return count;
+  }
+
+  async showUserCompletedServicesCount(id: string) {
+    const [list, count] = await this.servicesCompletedRepository.findAndCount({
+      where: {
+        user_id: id,
+      },
+    });
     return count;
   }
 

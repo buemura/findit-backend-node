@@ -6,13 +6,15 @@ import {
   PrimaryColumn,
   JoinColumn,
   ManyToOne,
+  OneToOne,
 } from "typeorm";
 
 import { v4 as uuid } from "uuid";
 import { User } from "./User";
+import { Service } from "./Service";
 
-@Entity("services")
-export class Service {
+@Entity("service_completed")
+export class ServiceCompleted {
   @PrimaryColumn()
   id: string;
 
@@ -20,32 +22,15 @@ export class Service {
   @ManyToOne(() => User)
   user: User;
 
+  @JoinColumn({ name: "service_id" })
+  @OneToOne(() => Service)
+  service: Service;
+
   @Column()
   user_id: string;
 
   @Column()
-  title: string;
-
-  @Column()
-  category: string;
-
-  @Column()
-  description: string;
-
-  @Column()
-  price: string;
-
-  @Column()
-  city: string;
-
-  @Column()
-  state: string;
-
-  @Column()
-  country: string;
-
-  @Column()
-  completed: boolean;
+  service_id: string;
 
   @CreateDateColumn()
   created_at: Date;
@@ -57,6 +42,5 @@ export class Service {
     if (!this.id) {
       this.id = uuid();
     }
-    this.completed = false;
   }
 }

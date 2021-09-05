@@ -1,7 +1,9 @@
 import { getCustomRepository, Like, Repository } from "typeorm";
 import { Service } from "../models/Service";
+import { ServiceCompleted } from "../models/ServiceCompleted";
 import { User } from "../models/User";
 import { ServicesRepository } from "../repositories/ServicesRepository";
+import { ServicesCompletedRepository } from "../repositories/ServicesCompletedRepository";
 import { UsersRepository } from "../repositories/UsersRepository";
 import { NotFound } from "../errors/NotFound";
 
@@ -16,12 +18,21 @@ interface IServicesCreate {
   country: string;
 }
 
+interface IServicesCompleted {
+  user_id: string;
+  service_id: string;
+}
+
 export class ServicesService {
   private servicesRepository: Repository<Service>;
+  private servicesCompletedRepository: Repository<ServiceCompleted>;
   private usersRepository: Repository<User>;
 
   constructor() {
     this.servicesRepository = getCustomRepository(ServicesRepository);
+    this.servicesCompletedRepository = getCustomRepository(
+      ServicesCompletedRepository
+    );
     this.usersRepository = getCustomRepository(UsersRepository);
   }
 
@@ -35,12 +46,6 @@ export class ServicesService {
     }
 
     return serviceExists;
-  }
-
-  async createService(serviceInfo: IServicesCreate) {
-    const services = this.servicesRepository.create(serviceInfo);
-    await this.servicesRepository.save(services);
-    return services;
   }
 
   async showAllServices(where: any) {
@@ -77,17 +82,28 @@ export class ServicesService {
     return count;
   }
 
+  async createService(serviceInfo: IServicesCreate) {
+    const services = this.servicesRepository.create(serviceInfo);
+    await this.servicesRepository.save(services);
+    return services;
+  }
+
+  async completeService(serviceCompleted: IServicesCompleted) {
+    const completed = this.servicesCompletedRepository.create(serviceCompleted);
+    await this.servicesCompletedRepository.save(completed);
+    await this.servicesRepository.update(serviceCompleted.service_id, {
+      completed: true,
+    });
+    return { message: "Service completed successfully" };
+  }
+
   async updateService(id: string, serviceInfo: IServicesCreate) {
-    // const serviceExists = await this.servicesRepository.findOne(id);
-
-    // if (!serviceExists) {
-    //   throw new NotFound("Service");
-    // }
-
+    const serviceExists = await this.servicesRepository.findOne(id);
+    if (!serviceExists) {
+      throw new NotFound("Service");
+    }
     await this.checkServiceExists(id);
-
     await this.servicesRepository.update(id, serviceInfo);
-
     return { message: `UPDATED service id ${id}` };
   }
 
@@ -100,11 +116,9 @@ export class ServicesService {
     const userExists = await this.usersRepository.findOne({
       where: { id },
     });
-
     if (!userExists) {
       throw new NotFound("User associated");
     }
-
     return await this.servicesRepository.find({
       where: { user_id: id },
       relations: ["user"],
