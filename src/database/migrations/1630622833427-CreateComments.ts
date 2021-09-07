@@ -36,6 +36,11 @@ export class CreateComments1630622833427 implements MigrationInterface {
             type: "timestamp",
             default: "now()",
           },
+          {
+            name: "deleted_at",
+            type: "timestamp",
+            isNullable: true,
+          },
         ],
         foreignKeys: [
           {

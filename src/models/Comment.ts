@@ -7,6 +7,7 @@ import {
   JoinColumn,
   ManyToOne,
   OneToOne,
+  DeleteDateColumn,
 } from "typeorm";
 
 import { v4 as uuid } from "uuid";
@@ -40,6 +41,9 @@ export class Comment {
 
   @UpdateDateColumn()
   updated_at: Date;
+
+  @DeleteDateColumn({ default: null })
+  deleted_at: Date;
 
   constructor() {
     if (!this.id) {

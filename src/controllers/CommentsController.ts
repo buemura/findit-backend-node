@@ -44,4 +44,16 @@ export class CommentsController {
       next(error);
     }
   }
+
+  static async deleteComment(req: Request, res: Response, next: NextFunction) {
+    try {
+      const { id } = req.params;
+      const commentsService = new CommentsService();
+      const commentResponse = await commentsService.deleteComment(id);
+
+      return res.json(commentResponse);
+    } catch (error) {
+      next(error);
+    }
+  }
 }

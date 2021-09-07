@@ -57,6 +57,11 @@ export class CreateServices1619138228557 implements MigrationInterface {
             type: "timestamp",
             default: "now()",
           },
+          {
+            name: "deleted_at",
+            type: "timestamp",
+            isNullable: true,
+          },
         ],
         foreignKeys: [
           {

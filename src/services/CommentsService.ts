@@ -59,4 +59,14 @@ export class CommentsService {
 
     return { message: `Comment ${response.id} posted successfully!` };
   }
+
+  async deleteComment(id: string) {
+    const commentToDelete = await this.commentsRepository.findOne(id);
+    if (!commentToDelete) {
+      throw new NotFoundError("Comment not found");
+    }
+
+    await this.commentsRepository.softRemove(commentToDelete);
+    return { message: `Comment ${id} deleted successfully` };
+  }
 }

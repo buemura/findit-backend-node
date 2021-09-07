@@ -13,7 +13,6 @@ if [[ $status_code -ne 200 ]] ; then
   echo -e "${green}[======== Executing  Migrations ========]${reset}"
   sleep 30
   docker exec node-1 npm run typeorm migration:run
-  docker exec node-1 npm run seeds
 else
   echo -e "${green}[======== Migrations already executed ========]${reset}"
   exit 0

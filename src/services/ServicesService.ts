@@ -123,7 +123,12 @@ export class ServicesService {
   }
 
   async deleteService(id: string) {
-    await this.servicesRepository.delete(id);
+    const serviceToRemove = await this.servicesRepository.findOne(id);
+    if (!serviceToRemove) {
+      throw new NotFoundError("Service not found");
+    }
+
+    await this.servicesRepository.softRemove(serviceToRemove);
     return { message: `DELETED service id ${id}` };
   }
 

@@ -3,6 +3,7 @@ import {
   Column,
   CreateDateColumn,
   UpdateDateColumn,
+  DeleteDateColumn,
   PrimaryColumn,
   JoinColumn,
   ManyToOne,
@@ -52,6 +53,9 @@ export class Service {
 
   @UpdateDateColumn()
   updated_at: Date;
+
+  @DeleteDateColumn({ default: null })
+  deleted_at: Date;
 
   constructor() {
     if (!this.id) {

@@ -18,4 +18,9 @@ comments
     authMiddleware,
     commentValidation,
     CommentsController.createComment
+  )
+  .delete(
+    "/comments/delete-comment/:id",
+    authMiddleware,
+    CommentsController.deleteComment
   );
