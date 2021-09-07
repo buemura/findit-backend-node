@@ -58,7 +58,12 @@ export class ServicesService {
     } = where;
 
     if (Object.keys(where).length === 0) {
-      return await this.servicesRepository.find({ relations: ["user"] });
+      return await this.servicesRepository.find({
+        order: {
+          updated_at: "DESC",
+        },
+        relations: ["user"],
+      });
     }
 
     return await this.servicesRepository.find({
@@ -69,6 +74,9 @@ export class ServicesService {
         city: Like(`%${city}%`),
         state: Like(`%${state}%`),
         country: Like(`%${country}%`),
+      },
+      order: {
+        updated_at: "DESC",
       },
     });
   }
@@ -141,6 +149,9 @@ export class ServicesService {
     }
     return await this.servicesRepository.find({
       where: { user_id: id },
+      order: {
+        updated_at: "DESC",
+      },
       relations: ["user"],
     });
   }
