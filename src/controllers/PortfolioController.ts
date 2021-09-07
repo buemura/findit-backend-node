@@ -35,27 +35,6 @@ export class PortfolioController {
     }
   }
 
-  static async getPortfolioImages(
-    req: Request,
-    res: Response,
-    next: NextFunction
-  ) {
-    const portfolioService = new PortfolioService();
-    const { id } = req.params;
-
-    try {
-      const portfolio: any = await portfolioService.getPortfolioImages(id);
-
-      if (!portfolio) {
-        return res.json({ message: "User has no portfolio" });
-      }
-
-      return res.sendFile(`../`);
-    } catch (error) {
-      next(error);
-    }
-  }
-
   static async getPortfolioImage(
     req: Request,
     res: Response,
@@ -84,11 +63,59 @@ export class PortfolioController {
   ) {
     const portfolioService = new PortfolioService();
     const { id } = req.params;
-    const { files } = req;
+    const { file } = req;
+    const { description = "" } = req.body;
 
     try {
-      const upload = await portfolioService.uploadPortfolioImages(id, files);
+      const upload = await portfolioService.uploadPortfolioImages(
+        id,
+        file,
+        description
+      );
       return res.json(upload);
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  static async updatePortfolioImages(
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ) {
+    const portfolioService = new PortfolioService();
+    const { id, image_id } = req.params;
+    const { file } = req;
+    const { description } = req.body;
+
+    try {
+      const upload = await portfolioService.updatePortfolioImages(
+        id,
+        image_id,
+        file,
+        description
+      );
+      return res.json(upload);
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  static async deletePortfolioImage(
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ) {
+    const portfolioService = new PortfolioService();
+    const { id, image_id } = req.params;
+
+    try {
+      const portfolio = await portfolioService.deletePortfolioImage(
+        id,
+        image_id
+      );
+
+      return res.send(portfolio);
     } catch (error) {
       next(error);
     }
