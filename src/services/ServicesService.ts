@@ -5,7 +5,7 @@ import { User } from "../models/User";
 import { ServicesRepository } from "../repositories/ServicesRepository";
 import { ServicesCompletedRepository } from "../repositories/ServicesCompletedRepository";
 import { UsersRepository } from "../repositories/UsersRepository";
-import { NotFound } from "../errors/NotFound";
+import { NotFoundError } from "../errors/NotFoundError";
 
 interface IServicesCreate {
   user_id: string;
@@ -42,7 +42,7 @@ export class ServicesService {
     });
 
     if (!serviceExists) {
-      throw new NotFound("Service");
+      throw new NotFoundError("Service not found");
     }
 
     return serviceExists;
@@ -78,17 +78,31 @@ export class ServicesService {
   }
 
   async showServicesQuantity() {
-    const [list, count] = await this.servicesRepository.findAndCount();
+    const [_, count] = await this.servicesRepository.findAndCount();
     return count;
   }
 
   async createService(serviceInfo: IServicesCreate) {
+    const userExists = await this.usersRepository.findOne({
+      where: { id: serviceInfo.user_id },
+    });
+    if (!userExists) {
+      throw new NotFoundError("User associated not found");
+    }
+
     const services = this.servicesRepository.create(serviceInfo);
     await this.servicesRepository.save(services);
     return services;
   }
 
   async completeService(serviceCompleted: IServicesCompleted) {
+    const userExists = await this.usersRepository.findOne({
+      where: { id: serviceCompleted.user_id },
+    });
+    if (!userExists) {
+      throw new NotFoundError("User associated not found");
+    }
+
     const completed = this.servicesCompletedRepository.create(serviceCompleted);
     await this.servicesCompletedRepository.save(completed);
     await this.servicesRepository.update(serviceCompleted.service_id, {
@@ -100,8 +114,9 @@ export class ServicesService {
   async updateService(id: string, serviceInfo: IServicesCreate) {
     const serviceExists = await this.servicesRepository.findOne(id);
     if (!serviceExists) {
-      throw new NotFound("Service");
+      throw new NotFoundError("Service not found");
     }
+
     await this.checkServiceExists(id);
     await this.servicesRepository.update(id, serviceInfo);
     return { message: `UPDATED service id ${id}` };
@@ -117,7 +132,7 @@ export class ServicesService {
       where: { id },
     });
     if (!userExists) {
-      throw new NotFound("User associated");
+      throw new NotFoundError("User associated not found");
     }
     return await this.servicesRepository.find({
       where: { user_id: id },

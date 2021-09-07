@@ -1,23 +1,29 @@
-import { Request, Response } from "express";
+import { NextFunction, Request, Response } from "express";
 import { PortfolioService } from "../services/PortfolioService";
 import { StatusCodes } from "http-status-codes";
 import path from "path";
 
 export class PortfolioController {
-  static async showAllUsersPortfolios(_: Request, res: Response) {
+  static async showAllUsersPortfolios(
+    _: Request,
+    res: Response,
+    next: NextFunction
+  ) {
     const portfolioService = new PortfolioService();
 
     try {
       const usersPortfolios = await portfolioService.showAllUsersPortfolios();
       return res.json(usersPortfolios);
     } catch (error) {
-      return res
-        .status(StatusCodes.BAD_REQUEST)
-        .json({ message: error.message });
+      next(error);
     }
   }
 
-  static async showUserPortfolios(req: Request, res: Response) {
+  static async showUserPortfolios(
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ) {
     const portfolioService = new PortfolioService();
     const { id } = req.params;
 
@@ -25,13 +31,15 @@ export class PortfolioController {
       const userPortfolios = await portfolioService.showUserPortfolios(id);
       return res.json(userPortfolios);
     } catch (error) {
-      return res
-        .status(StatusCodes.BAD_REQUEST)
-        .json({ message: error.message });
+      next(error);
     }
   }
 
-  static async getPortfolioImages(req: Request, res: Response) {
+  static async getPortfolioImages(
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ) {
     const portfolioService = new PortfolioService();
     const { id } = req.params;
 
@@ -44,13 +52,15 @@ export class PortfolioController {
 
       return res.sendFile(`../`);
     } catch (error) {
-      return res
-        .status(StatusCodes.BAD_REQUEST)
-        .json({ message: error.message });
+      next(error);
     }
   }
 
-  static async getPortfolioImage(req: Request, res: Response) {
+  static async getPortfolioImage(
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ) {
     const portfolioService = new PortfolioService();
     const { id, image_id } = req.params;
 
@@ -63,13 +73,15 @@ export class PortfolioController {
 
       return res.sendFile(path.resolve(__dirname, "..", "uploads", portfolio));
     } catch (error) {
-      return res
-        .status(StatusCodes.BAD_REQUEST)
-        .json({ message: error.message });
+      next(error);
     }
   }
 
-  static async uploadPortfolioImages(req: Request, res: Response) {
+  static async uploadPortfolioImages(
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ) {
     const portfolioService = new PortfolioService();
     const { id } = req.params;
     const { files } = req;
@@ -78,9 +90,7 @@ export class PortfolioController {
       const upload = await portfolioService.uploadPortfolioImages(id, files);
       return res.json(upload);
     } catch (error) {
-      return res
-        .status(StatusCodes.BAD_REQUEST)
-        .json({ message: error.message });
+      next(error);
     }
   }
 }

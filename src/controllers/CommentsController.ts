@@ -1,9 +1,15 @@
-import { Request, Response } from "express";
+import { NextFunction, Request, Response } from "express";
+import { validationResult } from "express-validator";
 import { CommentsService } from "../services/CommentsService";
 import { StatusCodes } from "http-status-codes";
+import { RequestValidationError } from "../errors/RequestValidationError";
 
 export class CommentsController {
-  static async showAllComments(req: Request, res: Response) {
+  static async showAllComments(
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ) {
     const { id } = req.params;
     console.log(id);
 
@@ -13,27 +19,29 @@ export class CommentsController {
       const comments = await commentsService.showAllComments(id);
       return res.json(comments);
     } catch (error) {
-      return res
-        .status(StatusCodes.BAD_REQUEST)
-        .json({ message: error.message });
+      next(error);
     }
   }
 
-  static async createComment(req: Request, res: Response) {
-    const { id } = req.params;
-    const commentInfo = req.body;
-    const commentsService = new CommentsService();
-
+  static async createComment(req: Request, res: Response, next: NextFunction) {
     try {
+      const errors = validationResult(req);
+
+      if (!errors.isEmpty()) {
+        throw new RequestValidationError(errors.array());
+      }
+
+      const { id } = req.params;
+      const commentInfo = req.body;
+      const commentsService = new CommentsService();
+
       const commentResponse = await commentsService.createComment(
         id,
         commentInfo
       );
       return res.json(commentResponse);
     } catch (error) {
-      return res
-        .status(StatusCodes.BAD_REQUEST)
-        .json({ message: error.message });
+      next(error);
     }
   }
 }

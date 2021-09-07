@@ -1,9 +1,11 @@
 import { getCustomRepository, Repository } from "typeorm";
-import { NotFound } from "../errors/NotFound";
+import { NotFoundError } from "../errors/NotFoundError";
 import { Comment } from "../models/Comment";
 import { Service } from "../models/Service";
+import { User } from "../models/User";
 import { CommentsRepository } from "../repositories/CommentsRepository";
 import { ServicesRepository } from "../repositories/ServicesRepository";
+import { UsersRepository } from "../repositories/UsersRepository";
 
 interface INewComment {
   sender_id: string;
@@ -13,10 +15,12 @@ interface INewComment {
 export class CommentsService {
   private commentsRepository: Repository<Comment>;
   private servicesRepository: Repository<Service>;
+  private usersRepository: Repository<User>;
 
   constructor() {
     this.commentsRepository = getCustomRepository(CommentsRepository);
     this.servicesRepository = getCustomRepository(ServicesRepository);
+    this.usersRepository = getCustomRepository(UsersRepository);
   }
 
   async showAllComments(id: string) {
@@ -33,7 +37,16 @@ export class CommentsService {
     });
 
     if (!serviceExists) {
-      throw new NotFound("Service associated");
+      throw new NotFoundError("Service associated not found");
+    }
+
+    // Check if user exists
+    const userExists = await this.usersRepository.findOne({
+      where: { id: commentInfo.sender_id },
+    });
+
+    if (!userExists) {
+      throw new NotFoundError("User associated not found");
     }
 
     // Post Comment

@@ -3,7 +3,7 @@ import { User } from "../models/User";
 import { ServiceCompleted } from "../models/ServiceCompleted";
 import { UsersRepository } from "../repositories/UsersRepository";
 import { ServicesCompletedRepository } from "../repositories/ServicesCompletedRepository";
-import { NotFound } from "../errors/NotFound";
+import { NotFoundError } from "../errors/NotFoundError";
 
 interface IUsers {
   name?: string;
@@ -50,7 +50,7 @@ export class UsersService {
     });
 
     if (!userExists) {
-      throw new NotFound("User");
+      throw new NotFoundError("User not found");
     }
 
     return userExists;

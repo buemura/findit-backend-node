@@ -3,7 +3,8 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import blacklist from "../middlewares/handleBlacklist";
 import { EmailSender } from "../utils/emailSender";
-import { AlreadyExists } from "../errors/AlreadyExists";
+import { BadRequestError } from "../errors/BadRequestError";
+import { UnauthorizedError } from "../errors/UnauthorizedError";
 import { User } from "../models/User";
 import { UsersRepository } from "../repositories/UsersRepository";
 import dotenv from "dotenv";
@@ -28,13 +29,12 @@ export class AuthService {
   }
 
   async registerUser({ name, email, password }: IUsersAuth) {
-    const userAlreadyExists = await this.usersRepository.findOne({
-      name,
+    const userExists = await this.usersRepository.findOne({
       email,
     });
 
-    if (userAlreadyExists) {
-      throw new Error("User already registered!");
+    if (userExists) {
+      throw new BadRequestError("Email already taken");
     }
 
     const hashedPassword = await bcrypt.hash(password, 10);
@@ -61,6 +61,10 @@ export class AuthService {
   }
 
   async confirmRegistration(id: string) {
+    const userExists = await this.usersRepository.findOne({ id });
+    if (!userExists) {
+      throw new BadRequestError("User not registered");
+    }
     await this.usersRepository.update(id, { email_verified: true });
     return { message: `User email verified.` };
   }
@@ -71,20 +75,19 @@ export class AuthService {
     });
 
     if (!user) {
-      return { auth: false, message: "Email is not registered" };
+      throw new BadRequestError("Email not registered");
     }
 
     const match = await bcrypt.compare(password, user.password);
 
     if (!match) {
-      return { auth: false, message: "Authentication Failed" };
+      throw new UnauthorizedError("Authentication Failed");
     }
 
     if (!user.email_verified) {
-      return {
-        auth: false,
-        message: `A confirmation email was sent to ${email}. Verify email first.`,
-      };
+      throw new UnauthorizedError(
+        `A confirmation email was sent to ${email}. Verify email first.`
+      );
     }
 
     const payload = { id: user.id, email: user.email };
@@ -107,7 +110,7 @@ export class AuthService {
 
       return { auth: true, message: "Signed out successfully" };
     } catch (error) {
-      return { auth: false, message: error.message };
+      throw new BadRequestError(error.message);
     }
   }
 }

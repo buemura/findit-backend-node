@@ -1,5 +1,6 @@
 import { getCustomRepository, Repository } from "typeorm";
-import { NotFound } from "../errors/NotFound";
+import { BadRequestError } from "../errors/BadRequestError";
+import { NotFoundError } from "../errors/NotFoundError";
 import { Chat } from "../models/Chat";
 import { Message } from "../models/Message";
 import { User } from "../models/User";
@@ -74,7 +75,7 @@ export class ChatsService {
       where: { id: chatInfo.receiver_id },
     });
     if (!senderExists || !receiverExists) {
-      throw new NotFound("Users associated");
+      throw new NotFoundError("Users associated not found");
     }
 
     // Check if the Chat Room already exists
@@ -90,9 +91,8 @@ export class ChatsService {
         },
       ],
     });
-
     if (chatExists) {
-      return { chat_id: chatExists.id, message: `Chat Room already exists!` };
+      throw new BadRequestError("Chat room already exists");
     }
 
     // Create Chat Room
@@ -105,7 +105,7 @@ export class ChatsService {
     // Check if Chat Room exists
     const chatExists = await this.chatsRepository.findOne({ where: { id } });
     if (!chatExists) {
-      throw new NotFound("Chat associated");
+      throw new NotFoundError("Chat associated not found");
     }
 
     // Check if sender_id is associated to chat room
@@ -117,7 +117,7 @@ export class ChatsService {
     });
 
     if (!userAssociated) {
-      throw new NotFound("User associated");
+      throw new NotFoundError("User associated not found");
     }
 
     // Send message
