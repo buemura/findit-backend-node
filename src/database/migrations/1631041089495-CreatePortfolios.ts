@@ -57,6 +57,6 @@ export class CreatePortfolios1631041089495 implements MigrationInterface {
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    queryRunner.dropTable("portfolios");
+    await queryRunner.dropTable("portfolios");
   }
 }

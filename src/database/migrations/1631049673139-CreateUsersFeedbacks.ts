@@ -1,10 +1,10 @@
 import { MigrationInterface, QueryRunner, Table } from "typeorm";
 
-export class CreateComments1630622833427 implements MigrationInterface {
+export class CreateUsersFeedbacks1631049673139 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.createTable(
       new Table({
-        name: "comments",
+        name: "user_feedback",
         columns: [
           {
             name: "id",
@@ -12,18 +12,18 @@ export class CreateComments1630622833427 implements MigrationInterface {
             isPrimary: true,
           },
           {
-            name: "service_id",
+            name: "user_id",
             type: "uuid",
             isNullable: false,
           },
           {
-            name: "sender_id",
+            name: "reviewer_id",
             type: "uuid",
             isNullable: false,
           },
           {
-            name: "comment",
-            type: "varchar",
+            name: "score",
+            type: "numeric",
             isNullable: false,
           },
           {
@@ -36,26 +36,13 @@ export class CreateComments1630622833427 implements MigrationInterface {
             type: "timestamp",
             default: "now()",
           },
-          {
-            name: "deleted_at",
-            type: "timestamp",
-            isNullable: true,
-          },
         ],
         foreignKeys: [
-          {
-            name: "FKServices",
-            referencedTableName: "services",
-            referencedColumnNames: ["id"],
-            columnNames: ["service_id"],
-            onDelete: "SET NULL",
-            onUpdate: "SET NULL",
-          },
           {
             name: "FKUsers",
             referencedTableName: "users",
             referencedColumnNames: ["id"],
-            columnNames: ["sender_id"],
+            columnNames: ["user_id"],
             onDelete: "SET NULL",
             onUpdate: "SET NULL",
           },
@@ -65,6 +52,6 @@ export class CreateComments1630622833427 implements MigrationInterface {
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.dropTable("comments");
+    await queryRunner.dropTable("user_feedback");
   }
 }

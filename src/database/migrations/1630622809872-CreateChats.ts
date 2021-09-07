@@ -47,6 +47,6 @@ export class CreateChats1630622809872 implements MigrationInterface {
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    queryRunner.dropTable("chats");
+    await queryRunner.dropTable("chats");
   }
 }

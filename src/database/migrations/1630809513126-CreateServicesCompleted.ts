@@ -57,6 +57,6 @@ export class CreateServicesCompleted1630809513126
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    queryRunner.dropTable("service_completed");
+    await queryRunner.dropTable("service_completed");
   }
 }
