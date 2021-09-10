@@ -1,4 +1,4 @@
-import { getCustomRepository, Repository } from "typeorm";
+import { getRepository, Repository } from "typeorm";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import blacklist from "../middlewares/handleBlacklist";
@@ -6,7 +6,6 @@ import { EmailSender } from "../utils/emailSender";
 import { BadRequestError } from "../errors/BadRequestError";
 import { UnauthorizedError } from "../errors/UnauthorizedError";
 import { User } from "../models/User";
-import { UsersRepository } from "../repositories/UsersRepository";
 import dotenv from "dotenv";
 dotenv.config();
 
@@ -20,7 +19,7 @@ export class AuthService {
   private usersRepository: Repository<User>;
 
   constructor() {
-    this.usersRepository = getCustomRepository(UsersRepository);
+    this.usersRepository = getRepository(User);
   }
 
   generateURL(route: string, id: string) {

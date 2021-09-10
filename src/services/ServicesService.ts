@@ -1,10 +1,7 @@
-import { getCustomRepository, Like, Repository } from "typeorm";
+import { getRepository, Like, Repository } from "typeorm";
 import { Service } from "../models/Service";
 import { ServiceCompleted } from "../models/ServiceCompleted";
 import { User } from "../models/User";
-import { ServicesRepository } from "../repositories/ServicesRepository";
-import { ServicesCompletedRepository } from "../repositories/ServicesCompletedRepository";
-import { UsersRepository } from "../repositories/UsersRepository";
 import { NotFoundError } from "../errors/NotFoundError";
 
 interface IServicesCreate {
@@ -29,11 +26,9 @@ export class ServicesService {
   private usersRepository: Repository<User>;
 
   constructor() {
-    this.servicesRepository = getCustomRepository(ServicesRepository);
-    this.servicesCompletedRepository = getCustomRepository(
-      ServicesCompletedRepository
-    );
-    this.usersRepository = getCustomRepository(UsersRepository);
+    this.servicesRepository = getRepository(Service);
+    this.servicesCompletedRepository = getRepository(ServiceCompleted);
+    this.usersRepository = getRepository(User);
   }
 
   async checkServiceExists(id: string) {

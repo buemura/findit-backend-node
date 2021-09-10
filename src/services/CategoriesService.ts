@@ -1,12 +1,11 @@
-import { getCustomRepository, Repository } from "typeorm";
+import { getRepository, Repository } from "typeorm";
 import { Category } from "../models/Category";
-import { CategoriesRepository } from "../repositories/CategoriesRepository";
 
 export class CategoriesService {
   private categoriesRepository: Repository<Category>;
 
   constructor() {
-    this.categoriesRepository = getCustomRepository(CategoriesRepository);
+    this.categoriesRepository = getRepository(Category);
   }
 
   async showAllCategories() {

@@ -1,8 +1,6 @@
-import { getCustomRepository, Repository } from "typeorm";
+import { getRepository, Repository } from "typeorm";
 import { User } from "../models/User";
 import { ServiceCompleted } from "../models/ServiceCompleted";
-import { UsersRepository } from "../repositories/UsersRepository";
-import { ServicesCompletedRepository } from "../repositories/ServicesCompletedRepository";
 import { NotFoundError } from "../errors/NotFoundError";
 
 interface IUsers {
@@ -38,10 +36,8 @@ export class UsersService {
   private servicesCompletedRepository: Repository<ServiceCompleted>;
 
   constructor() {
-    this.usersRepository = getCustomRepository(UsersRepository);
-    this.servicesCompletedRepository = getCustomRepository(
-      ServicesCompletedRepository
-    );
+    this.usersRepository = getRepository(User);
+    this.servicesCompletedRepository = getRepository(ServiceCompleted);
   }
 
   async checkUserExists(id: string) {

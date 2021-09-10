@@ -1,11 +1,8 @@
-import { getCustomRepository, Repository } from "typeorm";
+import { getRepository, Repository } from "typeorm";
 import { NotFoundError } from "../errors/NotFoundError";
 import { Comment } from "../models/Comment";
 import { Service } from "../models/Service";
 import { User } from "../models/User";
-import { CommentsRepository } from "../repositories/CommentsRepository";
-import { ServicesRepository } from "../repositories/ServicesRepository";
-import { UsersRepository } from "../repositories/UsersRepository";
 
 interface INewComment {
   sender_id: string;
@@ -18,9 +15,9 @@ export class CommentsService {
   private usersRepository: Repository<User>;
 
   constructor() {
-    this.commentsRepository = getCustomRepository(CommentsRepository);
-    this.servicesRepository = getCustomRepository(ServicesRepository);
-    this.usersRepository = getCustomRepository(UsersRepository);
+    this.commentsRepository = getRepository(Comment);
+    this.servicesRepository = getRepository(Service);
+    this.usersRepository = getRepository(User);
   }
 
   async showAllComments(id: string) {

@@ -1,12 +1,9 @@
-import { getCustomRepository, Repository } from "typeorm";
+import { getRepository, Repository } from "typeorm";
 import { BadRequestError } from "../errors/BadRequestError";
 import { NotFoundError } from "../errors/NotFoundError";
 import { Chat } from "../models/Chat";
 import { Message } from "../models/Message";
 import { User } from "../models/User";
-import { ChatsRepository } from "../repositories/ChatsRepository";
-import { MessagesRepository } from "../repositories/MessagesRepository";
-import { UsersRepository } from "../repositories/UsersRepository";
 
 interface IMessageSend {
   sender_id: string;
@@ -19,9 +16,9 @@ export class ChatsService {
   private usersRepository: Repository<User>;
 
   constructor() {
-    this.chatsRepository = getCustomRepository(ChatsRepository);
-    this.messagesRepository = getCustomRepository(MessagesRepository);
-    this.usersRepository = getCustomRepository(UsersRepository);
+    this.chatsRepository = getRepository(Chat);
+    this.messagesRepository = getRepository(Message);
+    this.usersRepository = getRepository(User);
   }
 
   async showAllChatRooms() {
