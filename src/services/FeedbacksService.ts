@@ -1,4 +1,5 @@
 import { getRepository, Repository } from "typeorm";
+import { StatusCodes } from "http-status-codes";
 import { UserFeedback } from "../models/UserFeedback";
 import { User } from "../models/User";
 import { NotFoundError } from "../errors/NotFoundError";
@@ -88,7 +89,10 @@ export class FeedbacksService {
     });
     await this.usersFeedbacksRepository.save(feedback);
 
-    return { message: `CREATE user id ${userId} feedback` };
+    return {
+      status: StatusCodes.CREATED,
+      message: `CREATE user id ${userId} feedback`,
+    };
   }
 
   async updateUserFeedback(
@@ -115,6 +119,9 @@ export class FeedbacksService {
       score: Number(feedbackInfo.score),
     });
 
-    return { message: `UPDATED user id ${userId} feedback` };
+    return {
+      status: StatusCodes.OK,
+      message: `UPDATED user id ${userId} feedback`,
+    };
   }
 }

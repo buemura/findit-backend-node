@@ -1,4 +1,5 @@
 import { getRepository, Repository } from "typeorm";
+import { StatusCodes } from "http-status-codes";
 import { NotFoundError } from "../errors/NotFoundError";
 import { Comment } from "../models/Comment";
 import { Service } from "../models/Service";
@@ -54,7 +55,10 @@ export class CommentsService {
     });
     await this.commentsRepository.save(response);
 
-    return { message: `Comment ${response.id} posted successfully!` };
+    return {
+      status: StatusCodes.CREATED,
+      message: `Comment ${response.id} posted successfully!`,
+    };
   }
 
   async deleteComment(id: string) {
@@ -64,6 +68,9 @@ export class CommentsService {
     }
 
     await this.commentsRepository.softRemove(commentToDelete);
-    return { message: `Comment ${id} deleted successfully` };
+    return {
+      status: StatusCodes.OK,
+      message: `Comment ${id} deleted successfully`,
+    };
   }
 }

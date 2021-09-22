@@ -1,4 +1,5 @@
 import { getRepository, Repository } from "typeorm";
+import { StatusCodes } from "http-status-codes";
 import { Portfolio } from "../models/Portfolio";
 import { User } from "../models/User";
 import { NotFoundError } from "../errors/NotFoundError";
@@ -62,7 +63,10 @@ export class PortfolioService {
     });
     await this.portfoliosRepository.save(portfolio);
 
-    return { message: `UPDATED user id ${userId} portfolio added` };
+    return {
+      status: StatusCodes.OK,
+      message: `UPDATED user id ${userId} portfolio added`,
+    };
   }
 
   async updatePortfolioImages(
@@ -99,7 +103,10 @@ export class PortfolioService {
       });
     }
 
-    return { message: `UPDATED user id ${userId} portfolio updated` };
+    return {
+      status: StatusCodes.OK,
+      message: `UPDATED user id ${userId} portfolio updated`,
+    };
   }
 
   async deletePortfolioImage(userId: string, imageId: string) {
@@ -114,6 +121,9 @@ export class PortfolioService {
     }
 
     await this.portfoliosRepository.softRemove(portfolioToRemove);
-    return { message: `DELETED portfolio id ${imageId}` };
+    return {
+      status: StatusCodes.OK,
+      message: `DELETED portfolio id ${imageId}`,
+    };
   }
 }

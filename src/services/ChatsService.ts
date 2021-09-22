@@ -1,4 +1,5 @@
 import { getRepository, Repository } from "typeorm";
+import { StatusCodes } from "http-status-codes";
 import { BadRequestError } from "../errors/BadRequestError";
 import { NotFoundError } from "../errors/NotFoundError";
 import { Chat } from "../models/Chat";
@@ -95,7 +96,10 @@ export class ChatsService {
     // Create Chat Room
     const data: any = this.chatsRepository.create(chatInfo);
     await this.chatsRepository.save(data);
-    return { message: `Chat Room ${data.id} created successfully!` };
+    return {
+      status: StatusCodes.CREATED,
+      message: `Chat Room ${data.id} created successfully!`,
+    };
   }
 
   async sendMessage(id: string, messageInfo: IMessageSend) {
@@ -126,6 +130,9 @@ export class ChatsService {
 
     await this.messagesRepository.save(messages);
 
-    return { message: `Message ${messages.id} sent successfully!` };
+    return {
+      status: StatusCodes.CREATED,
+      message: `Message ${messages.id} sent successfully!`,
+    };
   }
 }

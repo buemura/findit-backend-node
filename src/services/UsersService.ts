@@ -1,4 +1,5 @@
 import { getRepository, Repository } from "typeorm";
+import { StatusCodes } from "http-status-codes";
 import { User } from "../models/User";
 import { ServiceCompleted } from "../models/ServiceCompleted";
 import { NotFoundError } from "../errors/NotFoundError";
@@ -91,17 +92,20 @@ export class UsersService {
 
     await this.usersRepository.update(id, userInfo);
 
-    return { message: `UPDATED user id ${id}` };
+    return { status: StatusCodes.OK, message: `UPDATED user id ${id}` };
   }
 
   async uploadProfileImage(id: string, filename: string) {
     await this.checkUserExists(id);
     await this.usersRepository.update(id, { user_photo: filename });
-    return { message: `UPDATED user id ${id} profile photo` };
+    return {
+      status: StatusCodes.OK,
+      message: `UPDATED user id ${id} profile photo`,
+    };
   }
 
   async deleteUser(id: string) {
     await this.usersRepository.delete(id);
-    return { message: `DELETED user id ${id}` };
+    return { status: StatusCodes.OK, message: `DELETED user id ${id}` };
   }
 }

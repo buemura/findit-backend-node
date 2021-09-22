@@ -1,6 +1,7 @@
 import { getRepository, Repository } from "typeorm";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
+import { StatusCodes } from "http-status-codes";
 import blacklist from "../middlewares/handleBlacklist";
 import { EmailSender } from "../utils/emailSender";
 import { BadRequestError } from "../errors/BadRequestError";
@@ -56,7 +57,10 @@ export class AuthService {
     const emailSender = new EmailSender();
     const emailSent = emailSender.sendMail(destination, subject, text, html);
 
-    return { message: "User registered successfully!", emailSent };
+    return {
+      status: StatusCodes.CREATED,
+      message: "User registered successfully",
+    };
   }
 
   async confirmRegistration(id: string) {
@@ -65,7 +69,7 @@ export class AuthService {
       throw new BadRequestError("User not registered");
     }
     await this.usersRepository.update(id, { email_verified: true });
-    return { message: `User email verified.` };
+    return { status: StatusCodes.OK, message: "User email verified" };
   }
 
   async loginUser({ email, password }: IUsersAuth) {
@@ -85,7 +89,7 @@ export class AuthService {
 
     if (!user.email_verified) {
       throw new UnauthorizedError(
-        `A confirmation email was sent to ${email}. Verify email first.`
+        `A confirmation email was sent to ${email}. Verify email first`
       );
     }
 
@@ -94,7 +98,11 @@ export class AuthService {
 
     const token = jwt.sign(payload, process.env.JWT_SECRET, expiration);
 
-    return { auth: true, message: "Authentication Successful", token };
+    return {
+      status: StatusCodes.OK,
+      message: "Authentication Successful",
+      token,
+    };
   }
 
   async logoutUser(token: string) {
@@ -102,12 +110,12 @@ export class AuthService {
       const tokenInBlackList = await blacklist.tokenExists(token);
 
       if (tokenInBlackList) {
-        throw new jwt.JsonWebTokenError("Already Logged out.");
+        throw new BadRequestError("Already Logged out");
       }
 
       await blacklist.add(token);
 
-      return { auth: true, message: "Signed out successfully" };
+      return { status: StatusCodes.OK, message: "Signed out successfully" };
     } catch (error) {
       throw new BadRequestError(error.message);
     }

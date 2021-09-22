@@ -24,22 +24,10 @@ services:
     networks:
       - production-network
 
-  # mongo:
-  #   image: mongo:latest
-  #   container_name: mongo
-  #   environment:
-  #     MONGO_INITDB_ROOT_USERNAME: root
-  #     MONGO_INITDB_ROOT_PASSWORD: rootpassword
-  #   ports:
-  #     - 27017:27017
-  #   networks:
-  #     - production-network
-
   node1:
     build:
       dockerfile: ./Dockerfile
       context: .
-    image: uemurabruno/findit-backend
     container_name: node-1
     depends_on:
       - postgres

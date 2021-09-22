@@ -8,14 +8,14 @@ export class SeedCategories1630710463997 implements MigrationInterface {
 
     await queryRunner.query(query, [
       uuidv4(),
-      "Administração & Contabilidade",
+      "Administração e Contabilidade",
       new Date(),
       new Date(),
     ]);
 
     await queryRunner.query(query, [
       uuidv4(),
-      "Aulas & Treinamentos",
+      "Aulas e Treinamentos",
       new Date(),
       new Date(),
     ]);
@@ -29,7 +29,7 @@ export class SeedCategories1630710463997 implements MigrationInterface {
 
     await queryRunner.query(query, [
       uuidv4(),
-      "Construção & Reformas",
+      "Construção e Reformas",
       new Date(),
       new Date(),
     ]);
@@ -43,14 +43,14 @@ export class SeedCategories1630710463997 implements MigrationInterface {
 
     await queryRunner.query(query, [
       uuidv4(),
-      "Design & AudioVisual",
+      "Design e AudioVisual",
       new Date(),
       new Date(),
     ]);
 
     await queryRunner.query(query, [
       uuidv4(),
-      "Engenharia & Arquitetura",
+      "Engenharia e Arquitetura",
       new Date(),
       new Date(),
     ]);
@@ -64,14 +64,14 @@ export class SeedCategories1630710463997 implements MigrationInterface {
 
     await queryRunner.query(query, [
       uuidv4(),
-      "Moda & Beleza",
+      "Moda e Beleza",
       new Date(),
       new Date(),
     ]);
 
     await queryRunner.query(query, [
       uuidv4(),
-      "Saúde & Bem estar",
+      "Saúde e Bem estar",
       new Date(),
       new Date(),
     ]);
@@ -85,7 +85,7 @@ export class SeedCategories1630710463997 implements MigrationInterface {
 
     await queryRunner.query(query, [
       uuidv4(),
-      "Vendas & Marketing",
+      "Vendas e Marketing",
       new Date(),
       new Date(),
     ]);

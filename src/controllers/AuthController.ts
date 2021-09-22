@@ -67,8 +67,8 @@ export class AuthController {
       const { token } = req.body;
       const authService = new AuthService();
 
-      const { auth, message } = await authService.logoutUser(token);
-      return res.json({ auth, message });
+      const result = await authService.logoutUser(token);
+      return res.json(result);
     } catch (error) {
       next(error);
     }

@@ -1,4 +1,5 @@
 import { getRepository, Like, Repository } from "typeorm";
+import { StatusCodes } from "http-status-codes";
 import { Service } from "../models/Service";
 import { ServiceCompleted } from "../models/ServiceCompleted";
 import { User } from "../models/User";
@@ -111,7 +112,10 @@ export class ServicesService {
     await this.servicesRepository.update(serviceCompleted.service_id, {
       completed: true,
     });
-    return { message: "Service completed successfully" };
+    return {
+      status: StatusCodes.OK,
+      message: "Service completed successfully",
+    };
   }
 
   async updateService(id: string, serviceInfo: IServicesCreate) {
@@ -122,7 +126,7 @@ export class ServicesService {
 
     await this.checkServiceExists(id);
     await this.servicesRepository.update(id, serviceInfo);
-    return { message: `UPDATED service id ${id}` };
+    return { status: StatusCodes.OK, message: `UPDATED service id ${id}` };
   }
 
   async deleteService(id: string) {
@@ -132,7 +136,7 @@ export class ServicesService {
     }
 
     await this.servicesRepository.softRemove(serviceToRemove);
-    return { message: `DELETED service id ${id}` };
+    return { status: StatusCodes.OK, message: `DELETED service id ${id}` };
   }
 
   async showServicesFromUser(id: string) {
