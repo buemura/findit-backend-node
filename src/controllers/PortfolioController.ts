@@ -50,7 +50,9 @@ export class PortfolioController {
         return res.json({ message: "User has no portfolio" });
       }
 
-      return res.sendFile(path.resolve(__dirname, "..", "uploads", portfolio));
+      return res.sendFile(
+        path.resolve(__dirname, "..", "..", "uploads", portfolio)
+      );
     } catch (error) {
       next(error);
     }

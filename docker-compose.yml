@@ -36,9 +36,9 @@ services:
     networks:
       - production-network
     ports:
-      - "8080:4000"
+      - "8080:8080"
     volumes:
-      - ./src/uploads:/usr/app/src/uploads
+      - ./uploads:/usr/app/uploads
 
   # node2:
   #   build:

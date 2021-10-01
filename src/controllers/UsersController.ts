@@ -70,7 +70,7 @@ export class UsersController {
       }
 
       return res.sendFile(
-        path.resolve(__dirname, "..", "uploads", profileImage)
+        path.resolve(__dirname, "..", "..", "uploads", profileImage)
       );
     } catch (error) {
       next(error);
