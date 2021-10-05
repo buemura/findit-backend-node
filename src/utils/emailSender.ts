@@ -1,4 +1,4 @@
-import * as nodemailer from "nodemailer";
+import * as nodemailer from 'nodemailer';
 
 export class EmailSender {
   public host: string = process.env.EMAIL_HOST;
@@ -30,7 +30,7 @@ export class EmailSender {
       if (error) {
         return error;
       } else {
-        return "Email sent successfully";
+        return 'Email sent successfully';
       }
     });
   }

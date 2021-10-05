@@ -1,9 +1,9 @@
-import { getRepository, Like, Repository } from "typeorm";
-import { StatusCodes } from "http-status-codes";
-import { Service } from "../models/Service";
-import { ServiceCompleted } from "../models/ServiceCompleted";
-import { User } from "../models/User";
-import { NotFoundError } from "../errors/NotFoundError";
+import { getRepository, Like, Repository } from 'typeorm';
+import { StatusCodes } from 'http-status-codes';
+import { Service } from '../models/Service';
+import { ServiceCompleted } from '../models/ServiceCompleted';
+import { User } from '../models/User';
+import { NotFoundError } from '../errors/NotFoundError';
 
 interface IServicesCreate {
   user_id: string;
@@ -38,7 +38,7 @@ export class ServicesService {
     });
 
     if (!serviceExists) {
-      throw new NotFoundError("Service not found");
+      throw new NotFoundError('Service not found');
     }
 
     return serviceExists;
@@ -46,24 +46,24 @@ export class ServicesService {
 
   async showAllServices(where: any) {
     const {
-      title = "%",
-      category = "%",
-      city = "%",
-      state = "%",
-      country = "%",
+      title = '%',
+      category = '%',
+      city = '%',
+      state = '%',
+      country = '%',
     } = where;
 
     if (Object.keys(where).length === 0) {
       return await this.servicesRepository.find({
         order: {
-          updated_at: "DESC",
+          updated_at: 'DESC',
         },
-        relations: ["user"],
+        relations: ['user'],
       });
     }
 
     return await this.servicesRepository.find({
-      relations: ["user"],
+      relations: ['user'],
       where: {
         title: Like(`%${title}%`),
         category: Like(`%${category}%`),
@@ -72,13 +72,13 @@ export class ServicesService {
         country: Like(`%${country}%`),
       },
       order: {
-        updated_at: "DESC",
+        updated_at: 'DESC',
       },
     });
   }
 
   async showOneService(id: string) {
-    return await this.servicesRepository.findOne(id, { relations: ["user"] });
+    return await this.servicesRepository.findOne(id, { relations: ['user'] });
   }
 
   async showServicesQuantity() {
@@ -100,7 +100,7 @@ export class ServicesService {
       where: { id: serviceInfo.user_id },
     });
     if (!userExists) {
-      throw new NotFoundError("User associated not found");
+      throw new NotFoundError('User associated not found');
     }
 
     const services = this.servicesRepository.create(serviceInfo);
@@ -113,7 +113,7 @@ export class ServicesService {
       where: { id: serviceCompleted.user_id },
     });
     if (!userExists) {
-      throw new NotFoundError("User associated not found");
+      throw new NotFoundError('User associated not found');
     }
 
     const completed = this.servicesCompletedRepository.create(serviceCompleted);
@@ -123,14 +123,14 @@ export class ServicesService {
     });
     return {
       status: StatusCodes.OK,
-      message: "Service completed successfully",
+      message: 'Service completed successfully',
     };
   }
 
   async updateService(id: string, serviceInfo: IServicesCreate) {
     const serviceExists = await this.servicesRepository.findOne(id);
     if (!serviceExists) {
-      throw new NotFoundError("Service not found");
+      throw new NotFoundError('Service not found');
     }
 
     await this.checkServiceExists(id);
@@ -141,7 +141,7 @@ export class ServicesService {
   async deleteService(id: string) {
     const serviceToRemove = await this.servicesRepository.findOne(id);
     if (!serviceToRemove) {
-      throw new NotFoundError("Service not found");
+      throw new NotFoundError('Service not found');
     }
 
     await this.servicesRepository.softRemove(serviceToRemove);
@@ -153,14 +153,14 @@ export class ServicesService {
       where: { id },
     });
     if (!userExists) {
-      throw new NotFoundError("User associated not found");
+      throw new NotFoundError('User associated not found');
     }
     return await this.servicesRepository.find({
       where: { user_id: id },
       order: {
-        updated_at: "DESC",
+        updated_at: 'DESC',
       },
-      relations: ["user"],
+      relations: ['user'],
     });
   }
 }

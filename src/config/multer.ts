@@ -1,30 +1,30 @@
-import * as multer from "multer";
-import path from "path";
-import crypto from "crypto";
-import { InvalidDataError } from "../errors/InvalidDataError";
+import * as multer from 'multer';
+import path from 'path';
+import crypto from 'crypto';
+import { InvalidDataError } from '../errors/InvalidDataError';
 
-const dest = path.resolve(__dirname, "..", "..", "uploads");
+const dest = path.resolve(__dirname, '..', '..', 'uploads');
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, path.resolve(__dirname, "..", "..", "uploads"));
+    cb(null, path.resolve(__dirname, '..', '..', 'uploads'));
   },
   filename: function (req, file, cb) {
     crypto.randomBytes(16, (err, hash) => {
-      if (err) cb(err, "");
-      const fileName = `${hash.toString("hex")}-${file.originalname}`;
+      if (err) cb(err, '');
+      const fileName = `${hash.toString('hex')}-${file.originalname}`;
       cb(null, fileName);
     });
   },
 });
 
 const fileFilter = (req, file, cb) => {
-  const allowedMimes = ["image/jpeg", "image/pjpeg", "image/png", "image/gif"];
+  const allowedMimes = ['image/jpeg', 'image/pjpeg', 'image/png', 'image/gif'];
 
   if (allowedMimes.includes(file.mimetype)) {
     cb(null, true);
   } else {
-    cb(new InvalidDataError("Invalid data type"));
+    cb(new InvalidDataError('Invalid data type'));
   }
 };
 

@@ -1,10 +1,10 @@
-import { getRepository, Repository } from "typeorm";
-import { StatusCodes } from "http-status-codes";
-import { BadRequestError } from "../errors/BadRequestError";
-import { NotFoundError } from "../errors/NotFoundError";
-import { Chat } from "../models/Chat";
-import { Message } from "../models/Message";
-import { User } from "../models/User";
+import { getRepository, Repository } from 'typeorm';
+import { StatusCodes } from 'http-status-codes';
+import { BadRequestError } from '../errors/BadRequestError';
+import { NotFoundError } from '../errors/NotFoundError';
+import { Chat } from '../models/Chat';
+import { Message } from '../models/Message';
+import { User } from '../models/User';
 
 interface IMessageSend {
   sender_id: string;
@@ -73,7 +73,7 @@ export class ChatsService {
       where: { id: chatInfo.receiver_id },
     });
     if (!senderExists || !receiverExists) {
-      throw new NotFoundError("Users associated not found");
+      throw new NotFoundError('Users associated not found');
     }
 
     // Check if the Chat Room already exists
@@ -92,7 +92,7 @@ export class ChatsService {
     if (chatExists) {
       return {
         status: StatusCodes.OK,
-        message: "Chat room already exists",
+        message: 'Chat room already exists',
         chat_id: chatExists.id,
       };
     }
@@ -111,7 +111,7 @@ export class ChatsService {
     // Check if Chat Room exists
     const chatExists = await this.chatsRepository.findOne({ where: { id } });
     if (!chatExists) {
-      throw new NotFoundError("Chat associated not found");
+      throw new NotFoundError('Chat associated not found');
     }
 
     // Check if sender_id is associated to chat room
@@ -123,7 +123,7 @@ export class ChatsService {
     });
 
     if (!userAssociated) {
-      throw new NotFoundError("User associated not found");
+      throw new NotFoundError('User associated not found');
     }
 
     // Send message

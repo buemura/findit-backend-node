@@ -7,22 +7,22 @@ import {
   JoinColumn,
   ManyToOne,
   OneToOne,
-} from "typeorm";
+} from 'typeorm';
 
-import { v4 as uuid } from "uuid";
-import { User } from "./User";
-import { Service } from "./Service";
+import { v4 as uuid } from 'uuid';
+import { User } from './User';
+import { Service } from './Service';
 
-@Entity("service_completed")
+@Entity('service_completed')
 export class ServiceCompleted {
   @PrimaryColumn()
   id: string;
 
-  @JoinColumn({ name: "user_id" })
+  @JoinColumn({ name: 'user_id' })
   @ManyToOne(() => User)
   user: User;
 
-  @JoinColumn({ name: "service_id" })
+  @JoinColumn({ name: 'service_id' })
   @OneToOne(() => Service)
   service: Service;
 

@@ -1,9 +1,9 @@
-import { getRepository, Repository } from "typeorm";
-import { StatusCodes } from "http-status-codes";
-import { NotFoundError } from "../errors/NotFoundError";
-import { Comment } from "../models/Comment";
-import { Service } from "../models/Service";
-import { User } from "../models/User";
+import { getRepository, Repository } from 'typeorm';
+import { StatusCodes } from 'http-status-codes';
+import { NotFoundError } from '../errors/NotFoundError';
+import { Comment } from '../models/Comment';
+import { Service } from '../models/Service';
+import { User } from '../models/User';
 
 interface INewComment {
   sender_id: string;
@@ -24,7 +24,7 @@ export class CommentsService {
   async showAllComments(id: string) {
     return await this.commentsRepository.find({
       where: { service_id: id },
-      relations: ["user"],
+      relations: ['user'],
     });
   }
 
@@ -35,7 +35,7 @@ export class CommentsService {
     });
 
     if (!serviceExists) {
-      throw new NotFoundError("Service associated not found");
+      throw new NotFoundError('Service associated not found');
     }
 
     // Check if user exists
@@ -44,7 +44,7 @@ export class CommentsService {
     });
 
     if (!userExists) {
-      throw new NotFoundError("User associated not found");
+      throw new NotFoundError('User associated not found');
     }
 
     // Post Comment
@@ -64,7 +64,7 @@ export class CommentsService {
   async deleteComment(id: string) {
     const commentToDelete = await this.commentsRepository.findOne(id);
     if (!commentToDelete) {
-      throw new NotFoundError("Comment not found");
+      throw new NotFoundError('Comment not found');
     }
 
     await this.commentsRepository.softRemove(commentToDelete);

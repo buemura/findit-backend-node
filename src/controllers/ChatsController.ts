@@ -1,14 +1,14 @@
-import { NextFunction, Request, Response } from "express";
-import { ChatsService } from "../services/ChatsService";
-import { StatusCodes } from "http-status-codes";
-import { validationResult } from "express-validator";
-import { RequestValidationError } from "../errors/RequestValidationError";
+import { NextFunction, Request, Response } from 'express';
+import { ChatsService } from '../services/ChatsService';
+import { StatusCodes } from 'http-status-codes';
+import { validationResult } from 'express-validator';
+import { RequestValidationError } from '../errors/RequestValidationError';
 
 export class ChatsController {
   static async showAllChatRooms(
     req: Request,
     res: Response,
-    next: NextFunction
+    next: NextFunction,
   ) {
     const chatsService = new ChatsService();
 
@@ -23,7 +23,7 @@ export class ChatsController {
   static async showAllChatRoomsById(
     req: Request,
     res: Response,
-    next: NextFunction
+    next: NextFunction,
   ) {
     const { id } = req.params;
     const chatsService = new ChatsService();
@@ -39,7 +39,7 @@ export class ChatsController {
   static async showAllChatRoomsByUser(
     req: Request,
     res: Response,
-    next: NextFunction
+    next: NextFunction,
   ) {
     const { id } = req.params;
     const chatsService = new ChatsService();
@@ -55,7 +55,7 @@ export class ChatsController {
   static async showAllMessages(
     req: Request,
     res: Response,
-    next: NextFunction
+    next: NextFunction,
   ) {
     const { id } = req.params;
     const chatsService = new ChatsService();

@@ -1,13 +1,13 @@
-import { NextFunction, Request, Response } from "express";
-import { validationResult } from "express-validator";
-import { FeedbacksService } from "../services/FeedbacksService";
-import { RequestValidationError } from "../errors/RequestValidationError";
+import { NextFunction, Request, Response } from 'express';
+import { validationResult } from 'express-validator';
+import { FeedbacksService } from '../services/FeedbacksService';
+import { RequestValidationError } from '../errors/RequestValidationError';
 
 export class FeedbackController {
   static async showAllUsersFeedbacks(
     req: Request,
     res: Response,
-    next: NextFunction
+    next: NextFunction,
   ) {
     try {
       const feedbacksService = new FeedbacksService();
@@ -21,7 +21,7 @@ export class FeedbackController {
   static async showUserFeedbacks(
     req: Request,
     res: Response,
-    next: NextFunction
+    next: NextFunction,
   ) {
     try {
       const { id } = req.params;
@@ -36,7 +36,7 @@ export class FeedbackController {
   static async showUserFeedback(
     req: Request,
     res: Response,
-    next: NextFunction
+    next: NextFunction,
   ) {
     try {
       const { id, feedback_id } = req.params;
@@ -51,13 +51,13 @@ export class FeedbackController {
   static async showUserAverageFeedbacks(
     req: Request,
     res: Response,
-    next: NextFunction
+    next: NextFunction,
   ) {
     try {
       const { id } = req.params;
       const feedbacksService = new FeedbacksService();
       const averageFeedback = await feedbacksService.showUserAverageFeedbacks(
-        id
+        id,
       );
       return res.json(averageFeedback);
     } catch (error) {
@@ -68,7 +68,7 @@ export class FeedbackController {
   static async createUserFeedback(
     req: Request,
     res: Response,
-    next: NextFunction
+    next: NextFunction,
   ) {
     try {
       const errors = validationResult(req);
@@ -81,7 +81,7 @@ export class FeedbackController {
       const feedbacksService = new FeedbacksService();
       const feedback = await feedbacksService.createUserFeedback(
         id,
-        feedbackInfo
+        feedbackInfo,
       );
       return res.json(feedback);
     } catch (error) {
@@ -92,7 +92,7 @@ export class FeedbackController {
   static async updateUserFeedback(
     req: Request,
     res: Response,
-    next: NextFunction
+    next: NextFunction,
   ) {
     try {
       const { id, feedback_id } = req.params;
@@ -101,7 +101,7 @@ export class FeedbackController {
       const feedback = await feedbacksService.updateUserFeedback(
         id,
         feedback_id,
-        feedbackInfo
+        feedbackInfo,
       );
       return res.json(feedback);
     } catch (error) {

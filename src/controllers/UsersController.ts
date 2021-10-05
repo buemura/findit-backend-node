@@ -1,6 +1,6 @@
-import { NextFunction, Request, Response } from "express";
-import { UsersService } from "../services/UsersService";
-import path from "path";
+import { NextFunction, Request, Response } from 'express';
+import { UsersService } from '../services/UsersService';
+import path from 'path';
 
 export class UsersController {
   static async showAllUsers(req: Request, res: Response, next: NextFunction) {
@@ -40,7 +40,7 @@ export class UsersController {
   static async showUserCompletedServicesCount(
     req: Request,
     res: Response,
-    next: NextFunction
+    next: NextFunction,
   ) {
     const usersService = new UsersService();
     const { id } = req.params;
@@ -57,7 +57,7 @@ export class UsersController {
   static async getProfileImage(
     req: Request,
     res: Response,
-    next: NextFunction
+    next: NextFunction,
   ) {
     const { id } = req.params;
     const usersService = new UsersService();
@@ -66,11 +66,11 @@ export class UsersController {
       const profileImage = await usersService.getProfileImage(id);
 
       if (!profileImage) {
-        return res.json({ message: "User has no photo", hasPhoto: false });
+        return res.json({ message: 'User has no photo', hasPhoto: false });
       }
 
       return res.sendFile(
-        path.resolve(__dirname, "..", "..", "uploads", profileImage)
+        path.resolve(__dirname, '..', '..', 'uploads', profileImage),
       );
     } catch (error) {
       next(error);
@@ -93,7 +93,7 @@ export class UsersController {
   static async uploadProfileImage(
     req: Request,
     res: Response,
-    next: NextFunction
+    next: NextFunction,
   ) {
     const { id } = req.params;
     const { filename } = req.file;

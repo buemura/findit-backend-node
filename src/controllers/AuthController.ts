@@ -1,7 +1,7 @@
-import { NextFunction, Request, Response } from "express";
-import { AuthService } from "../services/AuthService";
-import { RequestValidationError } from "../errors/RequestValidationError";
-import { validationResult } from "express-validator";
+import { NextFunction, Request, Response } from 'express';
+import { AuthService } from '../services/AuthService';
+import { RequestValidationError } from '../errors/RequestValidationError';
+import { validationResult } from 'express-validator';
 
 export class AuthController {
   static async registerUser(req: Request, res: Response, next: NextFunction) {
@@ -25,7 +25,7 @@ export class AuthController {
   static async confirmRegistration(
     req: Request,
     res: Response,
-    next: NextFunction
+    next: NextFunction,
   ) {
     const { id } = req.params;
     const authService = new AuthService();

@@ -1,5 +1,5 @@
-import { getRepository, Repository } from "typeorm";
-import { Category } from "../models/Category";
+import { getRepository, Repository } from 'typeorm';
+import { Category } from '../models/Category';
 
 export class CategoriesService {
   private categoriesRepository: Repository<Category>;

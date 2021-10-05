@@ -8,22 +8,22 @@ import {
   ManyToOne,
   OneToOne,
   DeleteDateColumn,
-} from "typeorm";
+} from 'typeorm';
 
-import { v4 as uuid } from "uuid";
-import { Service } from "./Service";
-import { User } from "./User";
+import { v4 as uuid } from 'uuid';
+import { Service } from './Service';
+import { User } from './User';
 
-@Entity("comments")
+@Entity('comments')
 export class Comment {
   @PrimaryColumn()
   id: string;
 
-  @JoinColumn({ name: "service_id" })
+  @JoinColumn({ name: 'service_id' })
   @ManyToOne(() => Service)
   service: Service;
 
-  @JoinColumn({ name: "sender_id" })
+  @JoinColumn({ name: 'sender_id' })
   @OneToOne(() => User)
   user: User;
 

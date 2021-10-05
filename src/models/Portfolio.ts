@@ -7,17 +7,17 @@ import {
   PrimaryColumn,
   JoinColumn,
   ManyToOne,
-} from "typeorm";
+} from 'typeorm';
 
-import { v4 as uuid } from "uuid";
-import { User } from "./User";
+import { v4 as uuid } from 'uuid';
+import { User } from './User';
 
-@Entity("portfolios")
+@Entity('portfolios')
 export class Portfolio {
   @PrimaryColumn()
   id: string;
 
-  @JoinColumn({ name: "user_id" })
+  @JoinColumn({ name: 'user_id' })
   @ManyToOne(() => User)
   user: User;
 

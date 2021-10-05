@@ -1,9 +1,9 @@
-import { getRepository, Repository } from "typeorm";
-import { StatusCodes } from "http-status-codes";
-import { UserFeedback } from "../models/UserFeedback";
-import { User } from "../models/User";
-import { NotFoundError } from "../errors/NotFoundError";
-import { BadRequestError } from "../errors/BadRequestError";
+import { getRepository, Repository } from 'typeorm';
+import { StatusCodes } from 'http-status-codes';
+import { UserFeedback } from '../models/UserFeedback';
+import { User } from '../models/User';
+import { NotFoundError } from '../errors/NotFoundError';
+import { BadRequestError } from '../errors/BadRequestError';
 
 interface ICreateFeedback {
   user_id: string;
@@ -27,7 +27,7 @@ export class FeedbacksService {
   async showUserFeedbacks(id: string) {
     const userExists = await this.usersRepository.findOne(id);
     if (!userExists) {
-      throw new NotFoundError("User not found");
+      throw new NotFoundError('User not found');
     }
 
     return await this.usersFeedbacksRepository.find({
@@ -40,7 +40,7 @@ export class FeedbacksService {
   async showUserFeedback(id: string, feedback_id: string) {
     const userExists = await this.usersRepository.findOne(id);
     if (!userExists) {
-      throw new NotFoundError("User not found");
+      throw new NotFoundError('User not found');
     }
 
     const feedback = await this.usersFeedbacksRepository.findOne({
@@ -51,7 +51,7 @@ export class FeedbacksService {
     });
 
     if (!feedback) {
-      throw new NotFoundError("Feedback not found");
+      throw new NotFoundError('Feedback not found');
     }
 
     return feedback;
@@ -60,7 +60,7 @@ export class FeedbacksService {
   async showUserAverageFeedbacks(id: string) {
     const userExists = await this.usersRepository.findOne(id);
     if (!userExists) {
-      throw new NotFoundError("User not found");
+      throw new NotFoundError('User not found');
     }
 
     const avgFeedback = await this.usersFeedbacksRepository.findOne({
@@ -70,7 +70,7 @@ export class FeedbacksService {
     });
 
     if (!avgFeedback) {
-      throw new NotFoundError("Feedback not found");
+      throw new NotFoundError('Feedback not found');
     }
 
     return avgFeedback;
@@ -79,7 +79,7 @@ export class FeedbacksService {
   async createUserFeedback(userId: string, feedbackInfo: ICreateFeedback) {
     const userExists = await this.usersRepository.findOne(userId);
     if (!userExists) {
-      throw new NotFoundError("User not found");
+      throw new NotFoundError('User not found');
     }
 
     const feedback = this.usersFeedbacksRepository.create({
@@ -98,20 +98,20 @@ export class FeedbacksService {
   async updateUserFeedback(
     userId: string,
     feedback_id: string,
-    feedbackInfo: ICreateFeedback
+    feedbackInfo: ICreateFeedback,
   ) {
     // Check if user exists
     const userExists = await this.usersRepository.findOne(userId);
     if (!userExists) {
-      throw new NotFoundError("User not found");
+      throw new NotFoundError('User not found');
     }
 
     // Check if feedback exists
     const feedbackExists = await this.usersFeedbacksRepository.findOne(
-      feedback_id
+      feedback_id,
     );
     if (!feedbackExists) {
-      throw new NotFoundError("Feedback not found");
+      throw new NotFoundError('Feedback not found');
     }
 
     await this.usersFeedbacksRepository.update(feedback_id, {

@@ -1,9 +1,9 @@
-import { getRepository, Repository } from "typeorm";
-import { StatusCodes } from "http-status-codes";
-import { Portfolio } from "../models/Portfolio";
-import { User } from "../models/User";
-import { NotFoundError } from "../errors/NotFoundError";
-import { BadRequestError } from "../errors/BadRequestError";
+import { getRepository, Repository } from 'typeorm';
+import { StatusCodes } from 'http-status-codes';
+import { Portfolio } from '../models/Portfolio';
+import { User } from '../models/User';
+import { NotFoundError } from '../errors/NotFoundError';
+import { BadRequestError } from '../errors/BadRequestError';
 
 export class PortfolioService {
   private portfoliosRepository: Repository<Portfolio>;
@@ -21,7 +21,7 @@ export class PortfolioService {
   async showUserPortfolios(id: string) {
     const userExists = await this.usersRepository.findOne(id);
     if (!userExists) {
-      throw new NotFoundError("User not found");
+      throw new NotFoundError('User not found');
     }
 
     return await this.portfoliosRepository.find({
@@ -44,7 +44,7 @@ export class PortfolioService {
     });
 
     if (!portfolio) {
-      throw new NotFoundError("Portfolio not found");
+      throw new NotFoundError('Portfolio not found');
     }
 
     return portfolio.photoUrl;
@@ -53,7 +53,7 @@ export class PortfolioService {
   async uploadPortfolioImages(userId: string, file: any, description: string) {
     const userExists = await this.usersRepository.findOne(userId);
     if (!userExists) {
-      throw new NotFoundError("User not found");
+      throw new NotFoundError('User not found');
     }
 
     const portfolio = this.portfoliosRepository.create({
@@ -73,15 +73,15 @@ export class PortfolioService {
     userId: string,
     imageId: string,
     file: any,
-    description: string
+    description: string,
   ) {
     const portfolioExists = await this.portfoliosRepository.findOne(imageId);
     if (!portfolioExists) {
-      throw new NotFoundError("Portfolio not found");
+      throw new NotFoundError('Portfolio not found');
     }
 
     if (!file && !description) {
-      throw new BadRequestError("No file and description provided");
+      throw new BadRequestError('No file and description provided');
     }
 
     if (!file) {
@@ -112,12 +112,12 @@ export class PortfolioService {
   async deletePortfolioImage(userId: string, imageId: string) {
     const userExists = await this.usersRepository.findOne(userId);
     if (!userExists) {
-      throw new NotFoundError("User not found");
+      throw new NotFoundError('User not found');
     }
 
     const portfolioToRemove = await this.portfoliosRepository.findOne(imageId);
     if (!portfolioToRemove) {
-      throw new NotFoundError("Portfolio not found");
+      throw new NotFoundError('Portfolio not found');
     }
 
     await this.portfoliosRepository.softRemove(portfolioToRemove);

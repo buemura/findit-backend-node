@@ -1,8 +1,8 @@
-import { getRepository, Repository } from "typeorm";
-import { StatusCodes } from "http-status-codes";
-import { User } from "../models/User";
-import { ServiceCompleted } from "../models/ServiceCompleted";
-import { NotFoundError } from "../errors/NotFoundError";
+import { getRepository, Repository } from 'typeorm';
+import { StatusCodes } from 'http-status-codes';
+import { User } from '../models/User';
+import { ServiceCompleted } from '../models/ServiceCompleted';
+import { NotFoundError } from '../errors/NotFoundError';
 
 interface IUsers {
   name?: string;
@@ -47,7 +47,7 @@ export class UsersService {
     });
 
     if (!userExists) {
-      throw new NotFoundError("User not found");
+      throw new NotFoundError('User not found');
     }
 
     return userExists;
@@ -87,7 +87,7 @@ export class UsersService {
     const userExists = await this.usersRepository.findOne(id);
 
     if (!userExists) {
-      throw new Error("User does not exist!");
+      throw new Error('User does not exist!');
     }
 
     await this.usersRepository.update(id, userInfo);

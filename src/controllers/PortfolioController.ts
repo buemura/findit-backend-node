@@ -1,13 +1,13 @@
-import { NextFunction, Request, Response } from "express";
-import { PortfolioService } from "../services/PortfolioService";
-import { StatusCodes } from "http-status-codes";
-import path from "path";
+import { NextFunction, Request, Response } from 'express';
+import { PortfolioService } from '../services/PortfolioService';
+import { StatusCodes } from 'http-status-codes';
+import path from 'path';
 
 export class PortfolioController {
   static async showAllUsersPortfolios(
     _: Request,
     res: Response,
-    next: NextFunction
+    next: NextFunction,
   ) {
     const portfolioService = new PortfolioService();
 
@@ -22,7 +22,7 @@ export class PortfolioController {
   static async showUserPortfolios(
     req: Request,
     res: Response,
-    next: NextFunction
+    next: NextFunction,
   ) {
     const portfolioService = new PortfolioService();
     const { id } = req.params;
@@ -38,7 +38,7 @@ export class PortfolioController {
   static async getPortfolioImage(
     req: Request,
     res: Response,
-    next: NextFunction
+    next: NextFunction,
   ) {
     const portfolioService = new PortfolioService();
     const { id, image_id } = req.params;
@@ -47,11 +47,11 @@ export class PortfolioController {
       const portfolio = await portfolioService.getPortfolioImage(id, image_id);
 
       if (!portfolio) {
-        return res.json({ message: "User has no portfolio" });
+        return res.json({ message: 'User has no portfolio' });
       }
 
       return res.sendFile(
-        path.resolve(__dirname, "..", "..", "uploads", portfolio)
+        path.resolve(__dirname, '..', '..', 'uploads', portfolio),
       );
     } catch (error) {
       next(error);
@@ -61,18 +61,18 @@ export class PortfolioController {
   static async uploadPortfolioImages(
     req: Request,
     res: Response,
-    next: NextFunction
+    next: NextFunction,
   ) {
     const portfolioService = new PortfolioService();
     const { id } = req.params;
     const { file } = req;
-    const { description = "" } = req.body;
+    const { description = '' } = req.body;
 
     try {
       const upload = await portfolioService.uploadPortfolioImages(
         id,
         file,
-        description
+        description,
       );
       return res.json(upload);
     } catch (error) {
@@ -83,7 +83,7 @@ export class PortfolioController {
   static async updatePortfolioImages(
     req: Request,
     res: Response,
-    next: NextFunction
+    next: NextFunction,
   ) {
     const portfolioService = new PortfolioService();
     const { id, image_id } = req.params;
@@ -95,7 +95,7 @@ export class PortfolioController {
         id,
         image_id,
         file,
-        description
+        description,
       );
       return res.json(upload);
     } catch (error) {
@@ -106,7 +106,7 @@ export class PortfolioController {
   static async deletePortfolioImage(
     req: Request,
     res: Response,
-    next: NextFunction
+    next: NextFunction,
   ) {
     const portfolioService = new PortfolioService();
     const { id, image_id } = req.params;
@@ -114,7 +114,7 @@ export class PortfolioController {
     try {
       const portfolio = await portfolioService.deletePortfolioImage(
         id,
-        image_id
+        image_id,
       );
 
       return res.send(portfolio);

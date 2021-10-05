@@ -1,42 +1,42 @@
-import { Router } from "express";
-import { body } from "express-validator";
-import { authMiddleware } from "../middlewares/authMiddleware";
-import { ChatsController } from "../controllers/ChatsController";
+import { Router } from 'express';
+import { body } from 'express-validator';
+import { authMiddleware } from '../middlewares/authMiddleware';
+import { ChatsController } from '../controllers/ChatsController';
 
 export const chats = Router();
 
 const chatValidation = [
-  body("sender_id").notEmpty(),
-  body("receiver_id").notEmpty(),
+  body('sender_id').notEmpty(),
+  body('receiver_id').notEmpty(),
 ];
 
 const messageValidation = [
-  body("sender_id").notEmpty(),
-  body("content").notEmpty(),
+  body('sender_id').notEmpty(),
+  body('content').notEmpty(),
 ];
 
 chats
-  .get("/chats", authMiddleware, ChatsController.showAllChatRooms)
+  .get('/chats', authMiddleware, ChatsController.showAllChatRooms)
   .get(
-    "/chats/chatsById/:id",
+    '/chats/chatsById/:id',
     authMiddleware,
-    ChatsController.showAllChatRoomsById
+    ChatsController.showAllChatRoomsById,
   )
   .get(
-    "/chats/chatsByUser/:id",
+    '/chats/chatsByUser/:id',
     authMiddleware,
-    ChatsController.showAllChatRoomsByUser
+    ChatsController.showAllChatRoomsByUser,
   )
-  .get("/chats/messages/:id", authMiddleware, ChatsController.showAllMessages)
+  .get('/chats/messages/:id', authMiddleware, ChatsController.showAllMessages)
   .post(
-    "/chats/create-chat",
+    '/chats/create-chat',
     authMiddleware,
     chatValidation,
-    ChatsController.createChatRoom
+    ChatsController.createChatRoom,
   )
   .post(
-    "/chats/send-message/:id",
+    '/chats/send-message/:id',
     authMiddleware,
     messageValidation,
-    ChatsController.sendMessage
+    ChatsController.sendMessage,
   );

@@ -6,14 +6,14 @@ import {
   PrimaryColumn,
   JoinColumn,
   ManyToOne,
-} from "typeorm";
+} from 'typeorm';
 
-import { v4 as uuid } from "uuid";
-import { User } from "./User";
+import { v4 as uuid } from 'uuid';
+import { User } from './User';
 
-@Entity("chats")
+@Entity('chats')
 export class Chat {
-  @JoinColumn({ name: "sender_id" })
+  @JoinColumn({ name: 'sender_id' })
   @ManyToOne(() => User)
   user: User;
 

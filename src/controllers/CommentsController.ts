@@ -1,14 +1,14 @@
-import { NextFunction, Request, Response } from "express";
-import { validationResult } from "express-validator";
-import { CommentsService } from "../services/CommentsService";
-import { StatusCodes } from "http-status-codes";
-import { RequestValidationError } from "../errors/RequestValidationError";
+import { NextFunction, Request, Response } from 'express';
+import { validationResult } from 'express-validator';
+import { CommentsService } from '../services/CommentsService';
+import { StatusCodes } from 'http-status-codes';
+import { RequestValidationError } from '../errors/RequestValidationError';
 
 export class CommentsController {
   static async showAllComments(
     req: Request,
     res: Response,
-    next: NextFunction
+    next: NextFunction,
   ) {
     const { id } = req.params;
     console.log(id);
@@ -37,7 +37,7 @@ export class CommentsController {
 
       const commentResponse = await commentsService.createComment(
         id,
-        commentInfo
+        commentInfo,
       );
       return res.json(commentResponse);
     } catch (error) {

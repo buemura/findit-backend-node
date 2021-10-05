@@ -6,17 +6,17 @@ import {
   PrimaryColumn,
   JoinColumn,
   ManyToOne,
-} from "typeorm";
+} from 'typeorm';
 
-import { v4 as uuid } from "uuid";
-import { Chat } from "./Chat";
+import { v4 as uuid } from 'uuid';
+import { Chat } from './Chat';
 
-@Entity("messages")
+@Entity('messages')
 export class Message {
   @PrimaryColumn()
   id: string;
 
-  @JoinColumn({ name: "chat_id" })
+  @JoinColumn({ name: 'chat_id' })
   @ManyToOne(() => Chat)
   chat: Chat;
 

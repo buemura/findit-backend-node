@@ -1,14 +1,14 @@
-import { NextFunction, Request, Response } from "express";
-import { validationResult } from "express-validator";
-import { ServicesService } from "../services/ServicesService";
-import { StatusCodes } from "http-status-codes";
-import { RequestValidationError } from "../errors/RequestValidationError";
+import { NextFunction, Request, Response } from 'express';
+import { validationResult } from 'express-validator';
+import { ServicesService } from '../services/ServicesService';
+import { StatusCodes } from 'http-status-codes';
+import { RequestValidationError } from '../errors/RequestValidationError';
 
 export class ServicesController {
   static async showAllServices(
     req: Request,
     res: Response,
-    next: NextFunction
+    next: NextFunction,
   ) {
     try {
       const servicesService = new ServicesService();
@@ -53,7 +53,7 @@ export class ServicesController {
   static async showServicesQuantity(
     req: Request,
     res: Response,
-    next: NextFunction
+    next: NextFunction,
   ) {
     try {
       const servicesService = new ServicesService();
@@ -68,7 +68,7 @@ export class ServicesController {
   static async showUserCompletedServicesCount(
     req: Request,
     res: Response,
-    next: NextFunction
+    next: NextFunction,
   ) {
     try {
       const { id } = req.params;
@@ -102,7 +102,7 @@ export class ServicesController {
   static async completeService(
     req: Request,
     res: Response,
-    next: NextFunction
+    next: NextFunction,
   ) {
     try {
       const errors = validationResult(req);
@@ -149,7 +149,7 @@ export class ServicesController {
   static async showServicesFromUser(
     req: Request,
     res: Response,
-    next: NextFunction
+    next: NextFunction,
   ) {
     try {
       const { id } = req.params;

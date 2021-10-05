@@ -1,13 +1,13 @@
-import { getRepository, Repository } from "typeorm";
-import bcrypt from "bcrypt";
-import jwt from "jsonwebtoken";
-import { StatusCodes } from "http-status-codes";
-import blacklist from "../middlewares/handleBlacklist";
-import { EmailSender } from "../utils/emailSender";
-import { BadRequestError } from "../errors/BadRequestError";
-import { UnauthorizedError } from "../errors/UnauthorizedError";
-import { User } from "../models/User";
-import dotenv from "dotenv";
+import { getRepository, Repository } from 'typeorm';
+import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
+import { StatusCodes } from 'http-status-codes';
+import blacklist from '../middlewares/handleBlacklist';
+import { EmailSender } from '../utils/emailSender';
+import { BadRequestError } from '../errors/BadRequestError';
+import { UnauthorizedError } from '../errors/UnauthorizedError';
+import { User } from '../models/User';
+import dotenv from 'dotenv';
 dotenv.config();
 
 interface IUsersAuth {
@@ -34,7 +34,7 @@ export class AuthService {
     });
 
     if (userExists) {
-      throw new BadRequestError("Email already taken");
+      throw new BadRequestError('Email already taken');
     }
 
     const hashedPassword = await bcrypt.hash(password, 10);
@@ -47,10 +47,10 @@ export class AuthService {
 
     await this.usersRepository.save(user);
 
-    const url = this.generateURL("/api/auth/email-confirmation/", user.id);
+    const url = this.generateURL('/api/auth/email-confirmation/', user.id);
 
     const destination = user.email;
-    const subject = "Email Confirmation";
+    const subject = 'Email Confirmation';
     const text = `Hi! Please confirm your registration by clicking the URL below: ${url}`;
     const html = `<h1>Hi!</h1> Please confirm your registration by clicking the URL below:<br></br> <a href="${url}">${url}</a>`;
 
@@ -59,17 +59,17 @@ export class AuthService {
 
     return {
       status: StatusCodes.CREATED,
-      message: "User registered successfully",
+      message: 'User registered successfully',
     };
   }
 
   async confirmRegistration(id: string) {
     const userExists = await this.usersRepository.findOne({ id });
     if (!userExists) {
-      throw new BadRequestError("User not registered");
+      throw new BadRequestError('User not registered');
     }
     await this.usersRepository.update(id, { email_verified: true });
-    return { status: StatusCodes.OK, message: "User email verified" };
+    return { status: StatusCodes.OK, message: 'User email verified' };
   }
 
   async loginUser({ email, password }: IUsersAuth) {
@@ -78,29 +78,29 @@ export class AuthService {
     });
 
     if (!user) {
-      throw new BadRequestError("Email not registered");
+      throw new BadRequestError('Email not registered');
     }
 
     const match = await bcrypt.compare(password, user.password);
 
     if (!match) {
-      throw new UnauthorizedError("Authentication Failed");
+      throw new UnauthorizedError('Authentication Failed');
     }
 
     if (!user.email_verified) {
       throw new UnauthorizedError(
-        `A confirmation email was sent to ${email}. Verify email first`
+        `A confirmation email was sent to ${email}. Verify email first`,
       );
     }
 
     const payload = { id: user.id, email: user.email };
-    const expiration = { expiresIn: "1h" };
+    const expiration = { expiresIn: '1h' };
 
     const token = jwt.sign(payload, process.env.JWT_SECRET, expiration);
 
     return {
       status: StatusCodes.OK,
-      message: "Authentication Successful",
+      message: 'Authentication Successful',
       token,
     };
   }
@@ -110,12 +110,12 @@ export class AuthService {
       const tokenInBlackList = await blacklist.tokenExists(token);
 
       if (tokenInBlackList) {
-        throw new BadRequestError("Already Logged out");
+        throw new BadRequestError('Already Logged out');
       }
 
       await blacklist.add(token);
 
-      return { status: StatusCodes.OK, message: "Signed out successfully" };
+      return { status: StatusCodes.OK, message: 'Signed out successfully' };
     } catch (error) {
       throw new BadRequestError(error.message);
     }

@@ -7,17 +7,17 @@ import {
   JoinColumn,
   ManyToOne,
   OneToOne,
-} from "typeorm";
+} from 'typeorm';
 
-import { v4 as uuid } from "uuid";
-import { User } from "./User";
+import { v4 as uuid } from 'uuid';
+import { User } from './User';
 
-@Entity("services")
+@Entity('services')
 export class UserFeedback {
   @PrimaryColumn()
   id: string;
 
-  @JoinColumn({ name: "user_id" })
+  @JoinColumn({ name: 'user_id' })
   @ManyToOne(() => User)
   user: User;
 
