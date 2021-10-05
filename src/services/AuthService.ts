@@ -10,12 +10,6 @@ import { User } from '../models/User';
 import dotenv from 'dotenv';
 dotenv.config();
 
-interface IUsersAuth {
-  name?: string;
-  email: string;
-  password?: string;
-}
-
 export class AuthService {
   private usersRepository: Repository<User>;
 
@@ -28,7 +22,7 @@ export class AuthService {
     return `${baseURL}${route}${id}`;
   }
 
-  async registerUser({ name, email, password }: IUsersAuth) {
+  async registerUser({ name, email, password }: IAuthRegister) {
     const userExists = await this.usersRepository.findOne({
       email,
     });
@@ -72,7 +66,7 @@ export class AuthService {
     return { status: StatusCodes.OK, message: 'User email verified' };
   }
 
-  async loginUser({ email, password }: IUsersAuth) {
+  async loginUser({ email, password }: IAuthLogin) {
     const user = await this.usersRepository.findOne({
       email,
     });

@@ -5,11 +5,6 @@ import { Comment } from '../models/Comment';
 import { Service } from '../models/Service';
 import { User } from '../models/User';
 
-interface INewComment {
-  sender_id: string;
-  comment: string;
-}
-
 export class CommentsService {
   private commentsRepository: Repository<Comment>;
   private servicesRepository: Repository<Service>;
@@ -28,7 +23,7 @@ export class CommentsService {
     });
   }
 
-  async createComment(id: string, commentInfo: INewComment) {
+  async createComment(id: string, commentInfo: ICommentCreate) {
     // Check if Service exists
     const serviceExists = await this.servicesRepository.findOne({
       where: { id },

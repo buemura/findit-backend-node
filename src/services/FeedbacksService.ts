@@ -5,12 +5,6 @@ import { User } from '../models/User';
 import { NotFoundError } from '../errors/NotFoundError';
 import { BadRequestError } from '../errors/BadRequestError';
 
-interface ICreateFeedback {
-  user_id: string;
-  reviewer_id: string;
-  score: string;
-}
-
 export class FeedbacksService {
   private usersFeedbacksRepository: Repository<UserFeedback>;
   private usersRepository: Repository<User>;
@@ -76,7 +70,7 @@ export class FeedbacksService {
     return avgFeedback;
   }
 
-  async createUserFeedback(userId: string, feedbackInfo: ICreateFeedback) {
+  async createUserFeedback(userId: string, feedbackInfo: IFeedbackCreate) {
     const userExists = await this.usersRepository.findOne(userId);
     if (!userExists) {
       throw new NotFoundError('User not found');
@@ -98,7 +92,7 @@ export class FeedbacksService {
   async updateUserFeedback(
     userId: string,
     feedback_id: string,
-    feedbackInfo: ICreateFeedback,
+    feedbackInfo: IFeedbackCreate,
   ) {
     // Check if user exists
     const userExists = await this.usersRepository.findOne(userId);

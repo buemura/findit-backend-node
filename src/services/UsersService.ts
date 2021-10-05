@@ -4,34 +4,6 @@ import { User } from '../models/User';
 import { ServiceCompleted } from '../models/ServiceCompleted';
 import { NotFoundError } from '../errors/NotFoundError';
 
-interface IUsers {
-  name?: string;
-  email?: string;
-  password?: string;
-  user_photo?: string;
-  city?: string;
-  state?: string;
-  country?: string;
-  phone?: string;
-  occupation?: string;
-  about_me?: string;
-  email_verified?: boolean;
-}
-
-interface IUsersCreate {
-  name: string;
-  email: string;
-  password?: string;
-  user_photo?: string;
-  city?: string;
-  state?: string;
-  country?: string;
-  phone?: string;
-  occupation?: string;
-  about_me?: string;
-  email_verified?: boolean;
-}
-
 export class UsersService {
   private usersRepository: Repository<User>;
   private servicesCompletedRepository: Repository<ServiceCompleted>;
@@ -83,7 +55,7 @@ export class UsersService {
     return user_photo;
   }
 
-  async updateUser(id: string, userInfo: IUsersCreate) {
+  async updateUser(id: string, userInfo: IUsersUpdate) {
     const userExists = await this.usersRepository.findOne(id);
 
     if (!userExists) {

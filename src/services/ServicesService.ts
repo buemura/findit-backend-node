@@ -5,22 +5,6 @@ import { ServiceCompleted } from '../models/ServiceCompleted';
 import { User } from '../models/User';
 import { NotFoundError } from '../errors/NotFoundError';
 
-interface IServicesCreate {
-  user_id: string;
-  title: string;
-  category: string;
-  description: string;
-  price: string;
-  city: string;
-  state: string;
-  country: string;
-}
-
-interface IServicesCompleted {
-  user_id: string;
-  service_id: string;
-}
-
 export class ServicesService {
   private servicesRepository: Repository<Service>;
   private servicesCompletedRepository: Repository<ServiceCompleted>;

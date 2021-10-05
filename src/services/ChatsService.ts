@@ -6,11 +6,6 @@ import { Chat } from '../models/Chat';
 import { Message } from '../models/Message';
 import { User } from '../models/User';
 
-interface IMessageSend {
-  sender_id: string;
-  content: string;
-}
-
 export class ChatsService {
   private chatsRepository: Repository<Chat>;
   private messagesRepository: Repository<Message>;
@@ -64,7 +59,7 @@ export class ChatsService {
     return await this.messagesRepository.find({ where: { chat_id: id } });
   }
 
-  async createChatRoom(chatInfo: any) {
+  async createChatRoom(chatInfo: IChatroomCreate) {
     // Check if Users associated exists
     const senderExists = await this.usersRepository.findOne({
       where: { id: chatInfo.sender_id },
@@ -107,7 +102,7 @@ export class ChatsService {
     };
   }
 
-  async sendMessage(id: string, messageInfo: IMessageSend) {
+  async sendMessage(id: string, messageInfo: IMessageCreate) {
     // Check if Chat Room exists
     const chatExists = await this.chatsRepository.findOne({ where: { id } });
     if (!chatExists) {
