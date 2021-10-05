@@ -26,6 +26,10 @@ services
   .get("/services/:id", ServicesController.showOneService)
   .get("/services/all/count", ServicesController.showServicesQuantity)
   .get("/services/user/:id", ServicesController.showServicesFromUser)
+  .get(
+    "/services/user/:id/completed-services/count",
+    ServicesController.showUserCompletedServicesCount
+  )
   .post(
     "/services",
     authMiddleware,

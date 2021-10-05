@@ -90,7 +90,11 @@ export class ChatsService {
       ],
     });
     if (chatExists) {
-      throw new BadRequestError("Chat room already exists");
+      return {
+        status: StatusCodes.OK,
+        message: "Chat room already exists",
+        chat_id: chatExists.id,
+      };
     }
 
     // Create Chat Room
@@ -99,6 +103,7 @@ export class ChatsService {
     return {
       status: StatusCodes.CREATED,
       message: `Chat Room ${data.id} created successfully!`,
+      chat_id: data.id,
     };
   }
 
