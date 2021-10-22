@@ -5,7 +5,7 @@ import { RequestValidationError } from '../errors/RequestValidationError';
 
 export class FeedbackController {
   static async showAllUsersFeedbacks(
-    req: Request,
+    _req: Request,
     res: Response,
     next: NextFunction,
   ) {

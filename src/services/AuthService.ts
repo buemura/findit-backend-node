@@ -7,8 +7,6 @@ import { EmailSender } from '../utils/emailSender';
 import { BadRequestError } from '../errors/BadRequestError';
 import { UnauthorizedError } from '../errors/UnauthorizedError';
 import { User } from '../models/User';
-import dotenv from 'dotenv';
-dotenv.config();
 
 export class AuthService {
   private usersRepository: Repository<User>;

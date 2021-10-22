@@ -53,21 +53,20 @@ export class FeedbacksService {
 
   async showUserAverageFeedbacks(id: string) {
     const userExists = await this.usersRepository.findOne(id);
+
     if (!userExists) {
       throw new NotFoundError('User not found');
     }
 
-    const avgFeedback = await this.usersFeedbacksRepository.findOne({
-      where: {
-        user_id: id,
-      },
-    });
+    const [avgScore] = await this.usersFeedbacksRepository.query(
+      `SELECT ROUND(AVG(score), 1) AS avgScore FROM user_feedback WHERE user_id = '${id}'`,
+    );
 
-    if (!avgFeedback) {
+    if (!avgScore) {
       throw new NotFoundError('Feedback not found');
     }
 
-    return avgFeedback;
+    return avgScore;
   }
 
   async createUserFeedback(userId: string, feedbackInfo: IFeedbackCreate) {
@@ -109,7 +108,6 @@ export class FeedbacksService {
     }
 
     await this.usersFeedbacksRepository.update(feedback_id, {
-      reviewer_id: feedbackInfo.reviewer_id,
       score: Number(feedbackInfo.score),
     });
 
