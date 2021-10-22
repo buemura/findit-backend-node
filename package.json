@@ -4,7 +4,7 @@
   "main": "src/server.js",
   "scripts": {
     "build": "tsc && npm run copy-files",
-    "copy-files": "copyfiles uploads/**/* dist/ && copyfiles ormconfig.js* dist/ && copyfiles .env dist/",
+    "copy-files": "copyfiles uploads/**/* dist/",
     "dev": "ts-node-dev --ignore-watch node_modules --files src/server.ts",
     "start": "node ./dist/src/server.js",
     "docker": "sh ./scripts/build.sh",
