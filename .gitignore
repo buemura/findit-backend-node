@@ -7,7 +7,7 @@ pgdata/
 
 .env*
 
-src/uploads/*
+uploads/*
 
 __tests__/coverage/*
 

@@ -43,6 +43,9 @@ export class ServicesService {
           updated_at: 'DESC',
         },
         relations: ['user'],
+        where: {
+          completed: false,
+        },
       });
     }
 
@@ -54,6 +57,7 @@ export class ServicesService {
         city: Like(`%${city}%`),
         state: Like(`%${state}%`),
         country: Like(`%${country}%`),
+        completed: false,
       },
       order: {
         updated_at: 'DESC',
