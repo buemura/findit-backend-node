@@ -2,7 +2,7 @@ import { getRepository, Repository } from 'typeorm';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import { StatusCodes } from 'http-status-codes';
-import blacklist from '../middlewares/handleBlacklist';
+// import blacklist from '../middlewares/handleBlacklist';
 import { EmailSender } from '../utils/emailSender';
 import { BadRequestError } from '../errors/BadRequestError';
 import { UnauthorizedError } from '../errors/UnauthorizedError';
@@ -99,13 +99,13 @@ export class AuthService {
 
   async logoutUser(token: string) {
     try {
-      const tokenInBlackList = await blacklist.tokenExists(token);
+      // const tokenInBlackList = await blacklist.tokenExists(token);
 
-      if (tokenInBlackList) {
-        throw new BadRequestError('Already Logged out');
-      }
+      // if (tokenInBlackList) {
+      //   throw new BadRequestError('Already Logged out');
+      // }
 
-      await blacklist.add(token);
+      // await blacklist.add(token);
 
       return { status: StatusCodes.OK, message: 'Signed out successfully' };
     } catch (error) {

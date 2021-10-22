@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
-import blacklist from './handleBlacklist';
+// import blacklist from './handleBlacklist';
 import { UnauthorizedError } from '../errors/UnauthorizedError';
 
 export const authMiddleware = async (
@@ -15,11 +15,12 @@ export const authMiddleware = async (
     }
 
     const token = authorization.replace('Bearer', '').trim();
-    const tokenInBlacklist = await blacklist.tokenExists(token);
 
-    if (tokenInBlacklist) {
-      throw new UnauthorizedError('Token invalid due to logout');
-    }
+    // const tokenInBlacklist = await blacklist.tokenExists(token);
+
+    // if (tokenInBlacklist) {
+    //   throw new UnauthorizedError('Token invalid due to logout');
+    // }
 
     jwt.verify(token, process.env.JWT_SECRET);
 
