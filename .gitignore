@@ -7,7 +7,9 @@ pgdata/
 
 .env*
 
-uploads/*
+uploads/**/*.jpg
+uploads/**/*.jpeg
+uploads/**/*.png
 
 __tests__/coverage/*
 
