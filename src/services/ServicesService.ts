@@ -1,4 +1,4 @@
-import { getRepository, Like, Repository } from 'typeorm';
+import { getRepository, IsNull, Like, Not, Repository } from 'typeorm';
 import { StatusCodes } from 'http-status-codes';
 import { Service } from '../models/Service';
 import { ServiceCompleted } from '../models/ServiceCompleted';
@@ -70,7 +70,9 @@ export class ServicesService {
   }
 
   async showServicesQuantity() {
-    const [_, count] = await this.servicesRepository.findAndCount();
+    const [_, count] = await this.servicesRepository.findAndCount({
+      withDeleted: true,
+    });
     return count;
   }
 
@@ -136,7 +138,7 @@ export class ServicesService {
     return { status: StatusCodes.OK, message: `DELETED service id ${id}` };
   }
 
-  async showServicesFromUser(id: string) {
+  async showAllServicesFromUser(id: string) {
     const userExists = await this.usersRepository.findOne({
       where: { id },
     });
@@ -149,6 +151,44 @@ export class ServicesService {
         updated_at: 'DESC',
       },
       relations: ['user'],
+      withDeleted: true,
+    });
+  }
+
+  async showActiveServicesFromUser(id: string) {
+    const userExists = await this.usersRepository.findOne({
+      where: { id },
+    });
+    if (!userExists) {
+      throw new NotFoundError('User associated not found');
+    }
+    return await this.servicesRepository.find({
+      where: { user_id: id, completed: false },
+      order: {
+        updated_at: 'DESC',
+      },
+      relations: ['user'],
+    });
+  }
+
+  async showInactiveServicesFromUser(id: string) {
+    const userExists = await this.usersRepository.findOne({
+      where: { id },
+    });
+    if (!userExists) {
+      throw new NotFoundError('User associated not found');
+    }
+
+    return await this.servicesRepository.find({
+      where: [
+        { user_id: id, completed: true },
+        { user_id: id, deleted_at: Not(IsNull()) },
+      ],
+      order: {
+        updated_at: 'DESC',
+      },
+      relations: ['user'],
+      withDeleted: true,
     });
   }
 }

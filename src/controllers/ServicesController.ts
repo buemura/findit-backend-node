@@ -146,7 +146,7 @@ export class ServicesController {
     }
   }
 
-  static async showServicesFromUser(
+  static async showAllServicesFromUser(
     req: Request,
     res: Response,
     next: NextFunction,
@@ -155,7 +155,42 @@ export class ServicesController {
       const { id } = req.params;
       const servicesService = new ServicesService();
 
-      const userAllServices = await servicesService.showServicesFromUser(id);
+      const userAllServices = await servicesService.showAllServicesFromUser(id);
+      return res.json(userAllServices);
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  static async showActiveServicesFromUser(
+    req: Request,
+    res: Response,
+    next: NextFunction,
+  ) {
+    try {
+      const { id } = req.params;
+      const servicesService = new ServicesService();
+
+      const userAllServices = await servicesService.showActiveServicesFromUser(
+        id,
+      );
+      return res.json(userAllServices);
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  static async showInactiveServicesFromUser(
+    req: Request,
+    res: Response,
+    next: NextFunction,
+  ) {
+    try {
+      const { id } = req.params;
+      const servicesService = new ServicesService();
+
+      const userAllServices =
+        await servicesService.showInactiveServicesFromUser(id);
       return res.json(userAllServices);
     } catch (error) {
       next(error);

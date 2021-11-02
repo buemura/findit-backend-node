@@ -25,7 +25,15 @@ services
   .get('/services', ServicesController.showAllServices)
   .get('/services/:id', ServicesController.showOneService)
   .get('/services/all/count', ServicesController.showServicesQuantity)
-  .get('/services/user/:id', ServicesController.showServicesFromUser)
+  .get('/services/user/:id/all', ServicesController.showAllServicesFromUser)
+  .get(
+    '/services/user/:id/active',
+    ServicesController.showActiveServicesFromUser,
+  )
+  .get(
+    '/services/user/:id/inactive',
+    ServicesController.showInactiveServicesFromUser,
+  )
   .get(
     '/services/user/:id/completed-services/count',
     ServicesController.showUserCompletedServicesCount,
